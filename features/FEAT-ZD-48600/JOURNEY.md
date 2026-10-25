@@ -2,7 +2,7 @@
 
 **Requirement:** AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it   
 **Source:** Zendesk ticket ZD-48600 (sample, synthetic) (Customer Feedback) · **classified:** New Feature · **fitment:** Yes · **route:** full · **repositories:** ap_aging, ap_forecast, ap_pipeline, ap_portal  
-**Gates:** SIMULATED (automated test) · updated 2026-10-25 21:16
+**Gates:** SIMULATED (automated test) · updated 2026-10-25 21:22
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -11,8 +11,8 @@ Every agent reads this board at session start. Approved outputs below are readab
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
    - Backend: ✓ BE-01 → ✓ BE-02 → ✓ BE-03 → ✓ BE-04 → ▶ BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
-   - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ▶ DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
-   - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ✓ DE-04 → ✓ DE-05 → · DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
+   - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ✓ DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
+   - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ✓ DE-04 → ✓ DE-05 → ▶ DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
    - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → ▶ FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
@@ -48,9 +48,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 26 | BE-04 Identify the components/layers to be changed | Backend | [task.components](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.components.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-04/README.md) | I used the backend-steps BE-04 procedure. I read feat.tasks and feat.design in full. I searched feat.stories, feat.trd and feat.prd for the STORY-05 and STORY-06 criteria and the IF-5, IF-6 and CT-1 contracts, and read task.repo_access. I worked through the existing ap_aging source and tests in the step's tool view, and read ci.py and README.md with Read. For each layer I recorded whether it chang | — | scores {'correct': 5, 'complete': 5, 'grounded': 5, 'useful': 5} | 2 |
 | 27 | DS-04 Identify the components/layers to be changed | Data Science | [task.components](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.components.md) · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-04/README.md) | I followed DS-04 in the data-science-steps skill. I read all six contracted inputs. For feat.stories, feat.prd and feat.trd I read only the Data Science parts (STORY-03 and STORY-04, AC-7 to AC-12, IF-3 and IF-4, T-5 to T-7). I also read the approved background outputs with context_get: task.secrets_scope (DS-02), task.db_changes (DS-03) and feat.clarifications (DES-03). Then I read the existing a | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 5} | 1 |
 | 28 | DE-05 Data Model Changes | Data Engineering | [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md) · [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md) | I followed DE-05 in the data-engineering-steps skill. First I read both contracted inputs: task.components at 7cb32bd and the feature override of org.data_model at e8afce8. I also read the organisation's baseline org/org.data_model.md so I could compare the model before and after the feature. I used context_get to read the approved feat.design as background, which gives a receipt for its record co | Data engineer: approve by sim.data_engineer | scores {'correct': 5, 'complete': 4, 'grounded': 4, 'useful': 5} | 3 |
+| 29 | DS-05 Coding | Data Science | [task.code](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.code.md) · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-05/README.md) | I followed DS-05 in the data-science-steps skill. task.components (DS-04) was the build plan, feat.design B2 the specification, and feat.stories AC-03.x and AC-04.x the acceptance criteria. I read every readable input. task.secrets_scope is restricted, so I relied on task.components section 4 for it. Before editing I read the existing source, its callers and its tests. I made the smallest change t | — | scores {'correct': 4, 'complete': 3, 'grounded': 5, 'useful': 4} | 4 |
 
 ## Running now
 
 - BE-05 Coding (Backend)
-- DS-05 Coding (Data Science)
+- DE-06 Data Mapping (Data Engineering)
 - FE-04 Coding (Frontend)
