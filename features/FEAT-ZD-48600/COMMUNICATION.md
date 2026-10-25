@@ -17,3 +17,21 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 11:19:15**
 
 ✅ **REQ-01 Requirement Intake** (Requirement agent): done. Outputs: [feat.intake](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.intake.md), [feat.prebacklog](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.prebacklog.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-01/README.md). Decisions: PM: approve by sim.pm.
+
+---
+**2026-10-25 11:26:08**
+
+⚠️ **REQ-02 blocked** after its bounded attempts. *SIMULATED exception resolution by PM: one more bounded round in the same session with every refusal reason.*
+
+- G1 judge found an unsupported statement: "The pre-backlog entry status stays "Draft entry for review"." (feat.prebacklog does record the status as "Draft entry for review; gate: PM". But the workspace history (commit 0648784 "FEAT-ZD-48600 REQ-01 Requirement Intake)
+- G1 judge found an unsupported statement: "The source item's own type tag is `New Feature`, which matches this classification." (In requirements/ZD-48600.md the field is `expected_type: New Feature`, an expected or oracle value, not a type tag on the ticket. The value is correct, but the )
+
+---
+**2026-10-25 11:30:01**
+
+⏸ **Gate REQ-02 Grouping** needs **PM**. Review [feat.classification](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.classification.md) and the [step record](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-02/README.md) (checks and independent judge passed). Reply `/approve REQ-02 PM scores=c,c,g,u <comment>` or `/reject REQ-02 PM: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 11:30:03**
+
+✅ **REQ-02 Grouping** (Requirement agent): done. Outputs: [feat.classification](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.classification.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-02/README.md). Decisions: PM: approve by sim.pm.

@@ -1,0 +1,51 @@
+{
+  "trace": "FEAT-ZD-48600",
+  "step": "REQ-02",
+  "agent": "Requirement",
+  "attempt": 3,
+  "resumed_session": true,
+  "approach": "Attempt 3 fixes the G1 refusal. The CR-4 row said without qualification that provider acme-llm and model acme-text-2 do not change. That overstated feat.prebacklog, which says only that the ticket itself asks for no change of provider or model. It also conflicted with PROV-ACME-2026-11, which replaces acme-text-2 with acme-text-3 because of a deprecation on 2026-12-01. The row now states the current model, limits 'no change' to this ticket, and points to the PROV-ACME-2026-11 model swap. OQ-3 now asks about ordering and about which model the CR-4 tests run against. I checked the rest of the file for similar unscoped statements and found none. All cited requirement files were opened with Read in this session. The rest of the classification is unchanged: New Feature, Not Technical Only, a Technical sub-category for each CR, no duplicates merged, related items grouped, and the impacted repositories taken from the routing maps. I rewrote the file in full.",
+  "tools_used": [
+    "Skill:requirement-steps",
+    "Read",
+    "Glob",
+    "Grep",
+    "Write",
+    "Edit",
+    "Agent:verifier"
+  ],
+  "connector_calls": [],
+  "subagents_used": [
+    "Agent"
+  ],
+  "claims": 14,
+  "automated_failures": [
+    "G1 judge found an unsupported statement: \"The pre-backlog entry status stays \"Draft entry for review\".\" (feat.prebacklog does record the status as \"Draft entry for review; gate: PM\". But the workspace history (commit 0648784 \"FEAT-ZD-48600 REQ-01 Requirement Intake)",
+    "G1 judge found an unsupported statement: \"The source item's own type tag is `New Feature`, which matches this classification.\" (In requirements/ZD-48600.md the field is `expected_type: New Feature`, an expected or oracle value, not a type tag on the ticket. The value is correct, but the )"
+  ],
+  "judge": {
+    "unsupported": [
+      {
+        "text": "The pre-backlog entry status stays \"Draft entry for review\".",
+        "why": "feat.prebacklog does record the status as \"Draft entry for review; gate: PM\". But the workspace history (commit 0648784 \"FEAT-ZD-48600 REQ-01 Requirement Intake: approved by PM sim.pm\") shows the entry has since been approved, so saying it \"stays\" a draft is probably out of date. No source says the status after REQ-02 remains Draft. Minor."
+      },
+      {
+        "text": "The source item's own type tag is `New Feature`, which matches this classification.",
+        "why": "In requirements/ZD-48600.md the field is `expected_type: New Feature`, an expected or oracle value, not a type tag on the ticket. The value is correct, but the description of what the field is goes slightly beyond the source. Minor."
+      }
+    ],
+    "scores": {
+      "correct": 5,
+      "complete": 5,
+      "grounded": 4,
+      "useful": 5
+    },
+    "notes": "**Previous refusal point is fixed.** CR-4 now says acme-llm/acme-text-2 is what ap_forecast uses today (feat.prebacklog, model dependency map). It says \"This ticket itself asks for no change of provider or model\" and points out that PROV-ACME-2026-11 replaces acme-text-2 with acme-text-3, which is deprecated on 2026-12-01. The scope is now correct and the CR-4/PROV ordering is raised as OQ-3.\n\n**Statements checked against sources:**\n- Category New Feature: ZD-48600 expected_type, the CR list and the intake text.\n- Qualifier \"Not Technical Only\": the customer-visible portal table in CR-6. The output labels this as its own judgement. The trigger quote matches the brief word for word.\n- T2 and the risk-map quote, R-AP-12 and its quote, and the 2026-10-24 date all match the sources.\n- Feed v3 and the paid_date mapping, the unchanged schedule, the reject reason 'paid_date', the `> 30` / `> 10` thresholds and the \"more than 30 days past due\" rule match. So do D-2026-044, D-2026-050 and L-011, and the two-decimal JSON amounts from org.architecture.\n- The \"four new functions\" count is correct: delays_by_vendor, vendor_risk, overdue_with_risk and renderOverdueRisk.\n- Duplicate check: requirements/ holds exactly 11 other items, all `status: open`, and every one is covered. Each relation and quote checked out: ZD-48501 overdue_summary/badge-overdue; ZD-48211 quotes; ZD-48455 row-overdue/aging table; ZD-48470 feed v2 currency; PROV-ACME acme-text-3, system field, max_tokens 300; FIN-OPS 300->200 and its quote; ZD-48510 payment execution; ZD-48377, RETRO-2026-19, ZD-48480 and REG-LPR-2026-4.2 match their summaries.\n- The FIN-OPS vs PROV-ACME max_tokens conflict (200 vs 300) is real and sourced.\n- Routing table: matches the feature override routing map. The org-level map really does list only ap_aging (OQ-4 is valid).\n- \"Impacted repositories: ap_pipeline, ap_forecast, ap_aging, ap_portal\" matches the repos field on ZD-48600 and the routing map.\n- The api:github GET-only statement follows from the brief.\n- Carried-forward questions Q-1 to Q-5 match feat.prebacklog.\n\n**Interpretation, not a factual error:** the output calls the optional `risk` argument on `build_explanation_request` \"additive\" and consistent with \"Keep every existing signature\". Strictly, the signature does change. It is reasonable as an interpretation, but design should confirm it.\n\n**Against the workbook outcome:** the entry is classified by category with a Technical sub-category per CR. No duplicates were found, so nothing was merged, and related items are grouped with their reasons. For the action, the \"new ticket\" is recorded as this file, because no ticket-creation connector is approved. The output says this openly."
+  },
+  "turns": 3,
+  "seconds": 117.8,
+  "denied_by_hooks": [
+    "G9: step REQ-02 may run only no shell commands"
+  ],
+  "capability_requests": []
+}

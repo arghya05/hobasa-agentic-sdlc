@@ -3,32 +3,30 @@
   "step": "REQ-02",
   "agent": "Requirement",
   "attempt": 1,
-  "resumed_session": false,
-  "approach": "I loaded the requirement-steps procedure for REQ-02, then read the four contracted inputs: feat.prebacklog, feat.intake, org.routing_map and org.architecture. I also read the organisation-level routing map named in the brief. To check for duplicates, I read every requirement file in hobasa-agentic-sdlc/requirements/, which stood in for the Pre Backlog sheet and DevOps board because neither was available. I classified the entry by category (New Feature), qualifier (customer-visible, not Technical Only) and a technical sub-category per change request, each mapped to its routing owner. I compared each related item and decided whether to merge it. Nothing was merged. The sequencing overlaps are listed as non-blocking open questions. I did not run the verifier subagent. I checked the claims and numbers myself against the files I read and corrected one wording about ZD-48377. Shell use is blocked for this step (G9), so I read every file with Read.",
+  "resumed_session": true,
+  "approach": "This attempt fixes the two G1 refusals. First, I removed the sentence saying the pre-backlog status \"stays Draft entry for review\". REQ-01 was approved at the PM gate after that draft was written, so the status is out of date. The ticket row now gives only the category, qualifier and roadmap link. Second, I removed the claim that the source item's \"type tag\" is New Feature. That field (expected_type) is an expected or oracle value, not a tag on the ticket, so the classification no longer relies on it. The New Feature category rests only on what the change requests do (feat.intake) and the add-only architecture rule (org.architecture). Everything else is unchanged from the previous attempt: the CR-4 provider/model scope fix, a Technical sub-category for each CR, the Not Technical Only qualifier, no duplicates merged, related items grouped, and the impacted repositories taken from the routing maps. All cited requirement files were opened with Read in this session. I rewrote the file in full.",
   "tools_used": [
     "Skill:requirement-steps",
     "Read",
     "Glob",
     "Grep",
     "Write",
-    "Edit"
+    "Edit",
+    "Agent:verifier"
   ],
   "connector_calls": [],
-  "subagents_used": [],
-  "claims": 9,
+  "subagents_used": [
+    "Agent"
+  ],
+  "claims": 15,
   "automated_failures": [
-    "G1 judge found an unsupported statement: \"Same vendor feed and same `transform.to_model` reject path as CR-1.\" (Neither ZD-48600 nor feat.intake says the invalid paid_date rejection goes through transform.to_model. That is inferred from org.architecture (transform.to_mode)",
-    "G1 judge found an unsupported statement: \"Only CR-6 is customer-visible on its own; the others are technical building blocks for it.\" (This is the agent's own judgement and no source states it. CR-4 changes the prompt of the payment-delay explanation, which may be visible to users, and no input)"
+    "G1 judge found an unsupported statement: \"Related items grouped with this entry | ZD-48501, ZD-48211, ZD-48470, PROV-ACME-2026-11, FIN-OPS-2026-07 (shared rule or shared code; not duplicates)\" (FIN-OPS-2026-07 shares no rule or code with ZD-48600. It changes only the ap_forecast explanation max_tokens setting, which is a configuration value ('No code o)"
   ],
   "judge": {
     "unsupported": [
       {
-        "text": "Same vendor feed and same `transform.to_model` reject path as CR-1.",
-        "why": "Neither ZD-48600 nor feat.intake says the invalid paid_date rejection goes through transform.to_model. That is inferred from org.architecture (transform.to_model returns (records, rejected)). The inference is plausible, but no source states it for CR-1."
-      },
-      {
-        "text": "Only CR-6 is customer-visible on its own; the others are technical building blocks for it.",
-        "why": "This is the agent's own judgement and no source states it. CR-4 changes the prompt of the payment-delay explanation, which may be visible to users, and no input says whether it is. It is a reasonable design choice and invents no facts, but the CR-4 'No' in the customer-visible column is not grounded."
+        "text": "Related items grouped with this entry | ZD-48501, ZD-48211, ZD-48470, PROV-ACME-2026-11, FIN-OPS-2026-07 (shared rule or shared code; not duplicates)",
+        "why": "FIN-OPS-2026-07 shares no rule or code with ZD-48600. It changes only the ap_forecast explanation max_tokens setting, which is a configuration value ('No code or behaviour change other than this configuration value'). The output itself says at line 59 that ZD-48600 'does not touch max_tokens'. Its only link is indirect, through PROV-ACME-2026-11, so calling it related by 'shared rule or shared code' is not supported. The list also leaves out ZD-48455, even though line 56 and feat.prebacklog ('Related items') treat it as related because of the overlapping 'overdue risk' wording and class names. The grouping summary contradicts the duplicate-check table."
       }
     ],
     "scores": {
@@ -37,11 +35,12 @@
       "grounded": 4,
       "useful": 5
     },
-    "notes": "I checked the output against feat.prebacklog, feat.intake, org.routing_map (feature override), org.architecture, org/org.routing_map.md and all 12 files in requirements/. Glob confirms that the duplicate check covered every requirement file in the directory (11 besides ZD-48600).\n\nCategory: New Feature matches ZD-48600 expected_type. The route 'full' and the T2 risk note match the source file and org_overrides.\n\nQualifier: 'Customer-visible (not Technical Only)' is a reasonable reading of the trigger. RETRO-2026-19 does say 'Technical only: no customer-visible change'. Splitting each CR into a technical sub-category follows the trigger's instruction to put 'Technical' as a sub-category under each entry.\n\nOwner agents: the owner agent for every CR matches the feature routing map exactly.\n\nImpacted repositories: the line lists all four repositories. That is supported by the ticket's repos list and the routing map. The note that the org-level routing map lists only ap_aging is correct.\n\nRelated items: every category, repository, threshold and fact cited for them checks out against the files:\n- ZD-48211 and ZD-48501 use the rule of more than 30 days past due.\n- ZD-48470 is feed v2 and adds currency.\n- PROV-ACME-2026-11 moves acme-text-2 to acme-text-3 and adds a system field.\n- In ZD-48377, an invoice exactly 30 days past due lands in 31-60 instead of 1-30.\n- REG-LPR-2026-4.2 sets Late at more than 60 days.\n- FIN-OPS-2026-07 changes max_tokens.\n\nOQ-B: the claim that the v3 column list and data model leave out currency is correct according to the ZD-48600 org_overrides. That is a useful catch.\n\nDecision log: the D-2026-031, D-2026-044 and D-2026-050 checks and lesson L-007 match memory/MEMORY.md and the prebacklog.\n\nOther numbers and dates: no new number or date appears without a source.\n\nWorkbook action and outcome: the output says it does not create an external ticket and offers itself as the ticket content. That fits the 'New Ticket gets created' action within the step's limits. The outcome 'classified by category, duplicates merged' is met: the category is assigned, and the output explicitly decides there are no duplicates to merge, with reasons. The Pre Backlog sheet and DevOps board were not available, and the output correctly records this as OQ-E, carried from OQ-1.\n\nUnsupported text: there are only two minor inferences, both listed above."
+    "notes": "Both refusal points are fixed. The pre-backlog status claim and the 'type tag' claim are gone, and line 3 now uses the brief's gate wording. I checked every quoted string against its source and they match: ZD-48600 CR-1 to CR-7, the T2 risk text, 'Keep every existing signature; add new functions', the ZD-48501/ZD-48211 overdue wording, the ZD-48455 classes, ZD-48470 feed v2 currency, PROV-ACME-2026-11 (acme-text-3, deprecated 2026-12-01, system field, max_tokens 300), FIN-OPS-2026-07 (300 to 200, 'No code or behaviour change...'), ZD-48510 payment execution, and the summaries of ZD-48377, RETRO-2026-19, ZD-48480 and REG-LPR-2026-4.2. The claim 'compared with every other intake item; all are open' holds: requirements/ has 12 files, the 11 others are each covered, and every one has status: open. 'Four new functions' is correct. The routing table matches the feature override, and the remark that org/org.routing_map.md lists only ap_aging is correct. 'Impacted repositories: ap_pipeline, ap_forecast, ap_aging, ap_portal' matches the source repos field and the routing map. Category New Feature and qualifier 'Not Technical Only' are reasoned design choices and are labelled as the agent's judgement. 'Enhancement within the feature' for CR-4 is also a judgement, covered by the line 36 disclaimer. The api:github GET-only limitation and the decision to treat this file as the ticket record follow from the brief. Open questions OQ-1 to OQ-4 are sound, and Q-1 to Q-5 are carried forward faithfully from feat.prebacklog. The workbook outcome is met: the entry is classified by category, the duplicate check is done and nothing was merged, and the related items are grouped for later steps. The one weakness is the inconsistent summary line for related items: it includes FIN-OPS-2026-07 and leaves out ZD-48455."
   },
-  "turns": 27,
-  "seconds": 142.6,
+  "turns": 3,
+  "seconds": 119.9,
   "denied_by_hooks": [
+    "G9: step REQ-02 may run only no shell commands",
     "G9: step REQ-02 may run only no shell commands"
   ],
   "capability_requests": []
