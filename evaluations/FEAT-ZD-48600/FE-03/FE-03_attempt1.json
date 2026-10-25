@@ -4,13 +4,14 @@
   "agent": "Frontend",
   "attempt": 1,
   "resumed_session": false,
-  "approach": "I followed the FE-03 procedure in the frontend-steps skill. I read all six contracted inputs, focusing on TSK-07, STORY-07, feat.design HC-8/HC-9 and B4, and feat.trd IF-7, F-12, F-13 and C-8/C-9. I then read every file in the ap_portal working tree: index.js and portal.test.js from the tool view, plus package.json, ci.mjs, README.md and CLAUDE.md. Shell commands are blocked in FE-03 (G9 hook), so I used Read and Glob instead of git. I mapped each change to one design item and kept everything inside the TSK-07 file budget. To keep the line count low, the new code follows renderAgingSummary's pattern (template literals plus map/join), the helpers stay private, there is no new file, and the days check sits inline. I kept the helpers the design names rather than inlining them. A verifier subagent checked the draft against its sources and flagged one problem: the header-comment edit had no source behind it. I fixed this by marking it as optional agent judgement.",
+  "approach": "I used the frontend-steps FE-03 procedure. First I read feat.tasks (TSK-07), feat.design (B4 LLD, CT-1, DD-5, DD-8) and task.repo_access in full. From feat.stories, feat.prd and feat.trd I searched only the STORY-07, AC-19 to AC-21 and IF-7 / T-12 to T-16 parts. Then I read the existing ap_portal code: the index.js and test views, ci.mjs, package.json and README. I asked codegraph which code depends on the existing exports. From that I listed the smallest set of changes: two constants, three private helpers and one exported function, all appended in index.js. Two existing lines change (VERSION and module.exports), plus the package.json version and new tests. There are no new files and no edits to existing logic. A verifier subagent checked the draft against its sources. I fixed one citation and one overreach it found, and marked the codegraph test-coverage remark as agent judgement. A shell check was blocked by the step's G9 guardrail, so I read the files with Read and Glob instead.",
   "tools_used": [
-    "Skill (frontend-steps)",
+    "Skill(frontend-steps)",
     "Read",
     "Grep",
     "Glob",
-    "Agent (verifier)",
+    "mcp:codegraph (codegraph_explore)",
+    "Agent(verifier)",
     "Write",
     "Edit"
   ],
@@ -18,13 +19,27 @@
   "subagents_used": [
     "Agent"
   ],
-  "claims": 16,
-  "automated_failures": [
-    "G2 claim cites file:ap_portal/CLAUDE.md but the agent never read that file in this session"
-  ],
-  "judge": null,
+  "claims": 8,
+  "automated_failures": [],
+  "judge": {
+    "unsupported": [],
+    "improvements": [
+      "The workbook asks for the change 'with minimum lines of code', but the output gives no size for the change. A rough line estimate per component (C-FE-1 to C-FE-10) would make the claim checkable at FE-04.",
+      "In 'How this keeps the change small' item 1, 'ci.mjs would also have to compile it' makes this sound like extra work. ci.mjs already runs `node --check` on every .js file in src/ap_portal automatically, so a new file needs no CI change. The real reason to keep one file is feat.design DD-2, which puts renderOverdueRisk in index.js. Say that instead.",
+      "AC-07.9 (no Risk column or risk text, no row actions) and NFR-10 (no 'Late' wording) have no test in the section 4 coverage table. Consider an assertion in `renders overdue risk table` that the output contains no 'Risk' or 'Late' heading.",
+      "The B4.5 escaping test covers only `<`, `&` and `\"`, but AC-07.7 also requires `>` and `'`. Consider adding them so every entry in the escape map is checked.",
+      "In the section 5 traceability table, the C-FE-2/C-FE-6 row links AC-07.9 to T-12 and T-13. No TRD test covers AC-07.9 (feat.stories maps NFR-6 / AC-07.9 to '\u2014'). Split that row so the gap is visible."
+    ],
+    "scores": {
+      "correct": 5,
+      "complete": 4,
+      "grounded": 5,
+      "useful": 5
+    },
+    "notes": "I checked the output against feat.tasks (TSK-07), feat.design (A2 HC-8/HC-9, A3 CT-1, DD-2/3/5/8/11, B4.1\u2013B4.5, SE-2), feat.stories (STORY-07, AC-07.1\u201307.10, TK-07.3/07.5), feat.trd (F-12, F-13, IF-7.x, R-2, T-12\u2013T-16), feat.prd (NFR-10) and task.repo_access (branch feature/story at ff761ee, file budget). I also read the ap_portal checkout: index.js, portal.test.js, ci.mjs, package.json, README.md and CLAUDE.md.\n\n**Line numbers and code facts.** These all match the code: 'use strict' on line 1, the comment on line 2, VERSION on 3, LABELS on 4, formatAmount on 6, renderAgingSummary on 10\u201313 and module.exports on 15. The checkout file list, version 2.3.0 in both places, and the export and test names are also correct. The CI rules match ci.mjs: node --check, NODE_PATH=src, coverage of src/** at 90 or more, tests_run > 0, no failures, the console.log/eval( regex and the 140-character line limit.\n\n**Codegraph claim.** The output says codegraph reported \"no covering tests found\" for formatAmount and LABELS. The FE-03 hook log confirms it (line 16). The agent marks its own explanation of why codegraph misses the tests as agent judgement and hedges it.\n\n**Components.** Every component (RISK_CLASSES, OVERDUE_HEADINGS, escapeHtml, toTwoDecimalString, riskClass, renderOverdueRisk, the export update, the VERSION/package.json step and the tests) comes from feat.design B4.1/B4.2 and feat.tasks TSK-07. Its behaviour (empty-string and TypeError branches, the padding pattern, the allow-list) matches B4.2/B4.4 and the TSK-07 implementation notes.\n\n**Unchanged items and open questions.** The 'must not change' list and the carried open questions are cited correctly. Assumptions CA-1 to CA-3 are labelled as agent judgement, and both open questions are non-blocking with interim answers.\n\nI found no invented facts, contradictions or citations that fail to support their statements. The output is precise, traceable and directly usable for FE-04. The only gaps are about quality: no line estimate for the 'minimum lines' goal, and a few untested AC-07.7/AC-07.9 cases."
+  },
   "turns": 24,
-  "seconds": 215.7,
+  "seconds": 242.9,
   "denied_by_hooks": [
     "G9: step FE-03 may run only no shell commands"
   ],
