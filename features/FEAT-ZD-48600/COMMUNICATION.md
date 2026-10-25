@@ -76,3 +76,13 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 11:50:08**
 
 ✅ **REQ-04 BRD Preparation** (Requirement agent): done. Outputs: [feat.brd](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.brd.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-04/README.md). Decisions: Leadership: approve by sim.leadership.
+
+---
+**2026-10-25 11:57:30**
+
+⏸ **Gate REQ-05 Product Requirement Preparation** needs **PM**. Review [feat.prd](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.prd.md) and the [step record](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-05/README.md) (checks and independent judge passed). Reply `/approve REQ-05 PM scores=c,c,g,u <comment>` or `/reject REQ-05 PM: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 11:57:31**
+
+✅ **REQ-05 Product Requirement Preparation** (Requirement agent): done. Outputs: [feat.prd](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.prd.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-05/README.md). Decisions: PM: approve by sim.pm.
