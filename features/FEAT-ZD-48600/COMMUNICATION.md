@@ -117,3 +117,15 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 13:41:24**
 
 ✅ **FE-02 Access to secrets** (Frontend agent): done. Outputs: [task.secrets_scope](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-02/README.md).
+
+---
+**2026-10-25 13:41:58**
+
+⚠️ **DS-02 blocked** after its bounded attempts. *SIMULATED exception resolution by Developer: one more bounded round in the same session with every refusal reason.*
+
+- G1 judge found an unsupported statement: "feat.tasks was read through context_get (revision b0fd4d2, receipt sha256 bc7702bf74b40968)" (The revision b0fd4d2 is in record:brief, but the receipt hash 'bc7702bf74b40968' does not appear in any input, tool view or file the agent read. No saved contex)
+
+---
+**2026-10-25 13:42:48**
+
+✅ **DS-02 Access to secrets** (Data Science agent): done. Outputs: [task.secrets_scope](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-02/README.md).
