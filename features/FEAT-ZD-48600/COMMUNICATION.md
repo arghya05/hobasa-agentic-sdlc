@@ -201,3 +201,27 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 13:52:10**
 
 ✅ **FE-03 Identify the components/layers to be changed** (Frontend agent): done. Outputs: [task.components](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.components.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-03/README.md).
+
+---
+**2026-10-25 13:53:33**
+
+⚠️ **BE-05 blocked** after its bounded attempts. *SIMULATED exception resolution by Developer: one more bounded round in the same session with every refusal reason.*
+
+- G3 numbers ['73.2', '38', '24', '45', '58', '64'] in "CI compiles, runs 3 tests with 0 failures and 0 errors, and reports no static issues. Coverage is 73" do not appear in tool:repo; org.engineering_stack
+
+---
+**2026-10-25 13:56:22**
+
+⚠️ **DS-05 blocked** after its bounded attempts. *SIMULATED exception resolution by Developer: one more bounded round in the same session with every refusal reason.*
+
+- G1 judge found an unsupported statement: "This step's tool permissions allow only the CI command and read-only git, and the new tests are DS-06 work." (No source states this step's tool permission set. record:brief tells the agent to run `/usr/bin/python3 ci.py` and not to commit or push, but it nev
+
+---
+**2026-10-25 13:56:57**
+
+⏸ **Gate DE-05 Data Model Changes** needs **Data engineer**. Review [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md) and the [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md) (checks and independent judge passed). Reply `/approve DE-05 Data engineer scores=c,c,g,u <comment>` or `/reject DE-05 Data engineer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 13:56:59**
+
+✅ **DE-05 Data Model Changes** (Data Engineering agent): done. Outputs: [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md). Decisions: Data engineer: approve by sim.data_engineer.
