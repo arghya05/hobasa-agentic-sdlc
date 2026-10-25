@@ -1,0 +1,15 @@
+{
+  "step": "REQ-07",
+  "decisions": [
+    {
+      "role": "Architect",
+      "by": "sim.architect",
+      "decision": "approve",
+      "scores": null,
+      "comment": "automated checks and the independent judge passed",
+      "reason": null,
+      "simulated": true
+    }
+  ],
+  "gate_mode": "simulated"
+}
