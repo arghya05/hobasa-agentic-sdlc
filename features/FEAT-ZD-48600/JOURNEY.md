@@ -10,10 +10,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
-   - Backend: ✓ BE-01 → · BE-02 → · BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
+   - Backend: ✓ BE-01 → ▶ BE-02 → · BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
    - Data Science: ▶ DS-01 → · DS-02 → · DS-03 → · DS-04 → · DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
    - Data Engineering: ▶ DE-01 → · DE-02 → · DE-03 → · DE-04 → · DE-05 → · DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
-   - Frontend: ▶ FE-01 → · FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
+   - Frontend: ✓ FE-01 → · FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
 ## Done so far (newest last)
@@ -33,9 +33,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 11 | DES-04 Task Creation | Design | [feat.tasks](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.tasks.md), [feat.tier](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.tier.md) · [step record](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-04/README.md) | I wrote feat.tasks with eight engineering tasks, one per story. TSK-01 to TSK-07 are the parallel lane tasks for DE, DS, BE and FE, built on the approved design DT-1 to DT-7. TSK-08 is the Testing Agent's end-to-end proof, which runs after the lanes merge. Each task has a goal, components, acceptance criteria and pending markers, tests, dependencies, an S/M size with a file-scope budget, and done- | Developer: approve by sim.developer | — | 0 |
 | 12 | DES-01 Platform Architecture Update ¹ | Design | [feat.platform_update](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/checks/DES-01_feat.platform_update.md) · [step record](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-01/README.md) | I ran DES-01 in check mode, as the brief directs: I checked whether the action is needed and changed nothing. I read both contracted inputs: the approved TRD and the org.architecture feature override. I tested the TRD against the six platform elements that the approved DES-02 design names: topology, runtimes, repository roles, the JSON contract rule, the compatibility rule, and the security, tenan | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 1 |
 | 13 | BE-01 Checking the coding prerequisites ⁶ | Backend | [task.repo_access](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-01/README.md) | I read feat.tasks to find the Backend tasks and their repository: TSK-05 and TSK-06, both in ap_aging. I read org.engineering_stack for the language, CI command and whether Databricks or a database is used. The G9 hook blocked shell and git commands for BE-01, so I checked the repository state by reading files instead: .git/HEAD, .git/config, the branch refs, the feature/story reflog, src/ap_aging | — | scores {'correct': 5, 'complete': 4, 'grounded': 4, 'useful': 4} | 1 |
+| 14 | FE-01 Checking the coding prerequisites ⁶ | Frontend | [task.repo_access](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-01/README.md) | I followed the FE-01 procedure in the frontend-steps skill. I read the two inputs, feat.tasks and org.engineering_stack, to find which repository the Frontend lane needs: ap_portal, for TSK-07. This step's hook blocks every shell command, so I did not run git. Instead I checked the claims in the tool view by reading the checkout's files directly: .git/HEAD, the refs and reflogs, .git/config, packa | — | scores {'correct': 5, 'complete': 5, 'grounded': 4, 'useful': 5} | 1 |
 
 ## Running now
 
+- BE-02 Access to secrets (Backend)
 - DE-01 Checking the coding prerequisites ⁹ (Data Engineering)
 - DS-01 Checking the coding prerequisites ⁶ (Data Science)
-- FE-01 Checking the coding prerequisites ⁶ (Frontend)
