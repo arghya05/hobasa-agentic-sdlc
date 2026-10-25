@@ -10,7 +10,7 @@ Every agent reads this board at session start. Approved outputs below are readab
 
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
-   - Backend: ✓ BE-01 → ✓ BE-02 → ✓ BE-03 → ✓ BE-04 → ▶ BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
+   - Backend: ✓ BE-01 → ✓ BE-02 → ✓ BE-03 → ✓ BE-04 → ✗ BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
    - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ✗ DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
    - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ✓ DE-04 → ✓ DE-05 → ✓ DE-06 → ▶ DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
    - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → ✓ FE-04 → ▶ FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
@@ -51,13 +51,14 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 29 | DE-06 Data Mapping | Data Engineering | [feat.mappings](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.mappings.md) · [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-06/README.md) | I followed the DE-06 procedure in the data-engineering-steps skill, which reads feat.data_model_change and org.customer_mappings and writes feat.mappings. I read both contracted inputs, the shared memory and journey board, and the ap_pipeline tool view. I also read data/sample_feed.csv from the checkout to see which feed version the repository exercises. I compared the vendor's v3 contract with th | Data engineer: approve by sim.data_engineer | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 5} | 2 |
 | 30 | FE-04 Coding | Frontend | [task.code](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.code.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-04/README.md) | I followed the frontend-steps FE-04 procedure and read the contracted inputs: task.components, feat.design, feat.stories, feat.screens, org.design_library, org.engineering_stack and org.lessons. I read every repository file I cite with the Read tool: src/ap_portal/index.js, CLAUDE.md, package.json, ci.mjs, README.md and docs/ap_portal.md.  In src/ap_portal/index.js I implemented task.components se | — | scores {'correct': 4, 'complete': 3, 'grounded': 5, 'useful': 4} | 4 |
 | 31 | DS-05 Coding | Data Science | — · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-05/README.md) | I read the DS-05 inputs (task.components at f956a35, feat.design, feat.stories, org.engineering_stack, org.lessons) and the repository's ci.py and CLAUDE.md with the Read tool. I implemented the minimum design from task.components: CMP-1, a new risk.py with vendor_risk; CMP-2, the __init__ export and a minor version step; CMP-3, an additive risk=None last parameter in explain.py. Each has docstrin | — | — | 6 |
+| 32 | BE-05 Coding | Backend | — · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-05/README.md) | — | — | — | 6 |
 
 ## Running now
 
-- BE-05 Coding (Backend)
 - DE-07 Identify the sources/pipelines to be changed (Transformation) ⁵ (Data Engineering)
 - FE-05 Unit Test Cases (Frontend)
 
 ## Exceptions waiting for a person
 
 - DS-05: G1 judge found an unsupported statement: "(judge did not finish)" (You've hit your session limit · resets 6:30pm (Asia/Calcutta))
+- BE-05: Claude Code session ended success: You've hit your session limit · resets 6:30pm (Asia/Calcutta)
