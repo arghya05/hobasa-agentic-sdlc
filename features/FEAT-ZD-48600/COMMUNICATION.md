@@ -59,3 +59,13 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 14:19:09**
 
 ✅ **DS-02 Access to secrets** (Data Science agent): done. Outputs: [task.secrets_scope](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-02/README.md).
+
+---
+**2026-10-25 14:20:19**
+
+⏸ **Gate DE-03 Database changes** needs **Data engineer**. Review [task.db_changes](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/task.db_changes.md) and the [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-03/README.md) (checks and independent judge passed). Reply `/approve DE-03 Data engineer scores=c,c,g,u <comment>` or `/reject DE-03 Data engineer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 14:20:21**
+
+✅ **DE-03 Database changes** (Data Engineering agent): done. Outputs: [task.db_changes](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/task.db_changes.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-03/README.md). Decisions: Data engineer: approve by sim.data_engineer.
