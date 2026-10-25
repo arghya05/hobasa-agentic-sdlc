@@ -4,14 +4,15 @@
   "agent": "Data Engineering",
   "attempt": 1,
   "resumed_session": false,
-  "approach": "I followed the data-engineering-steps skill for DE-04. I fetched the four contracted inputs (feat.tasks, feat.design, org.data_model, task.repo_access) with context_get to get receipts. I also read the approved DE-02 and DE-03 outputs (task.secrets_scope, task.db_changes) as background. Then I read the existing ap_pipeline source, tests and schedule from the step's tool view (tool:repo) to see how the vendor CSV feed is ingested today. The question was whether feed v3, which adds the optional paid_date column, needs any ingestion code. parse_feed uses csv.DictReader, which is header-driven, so the new column arrives as a key with no code change and feed v2 keeps loading. pipeline.run, dq.quality_report and schedule.json also stay unchanged. So the ingestion-layer change list is: no source or pipeline code to create or update, plus one source-contract change (v2 to v3). For later steps I listed, without deciding them, the two components where the feature's code lands (transform.to_model with _parse_paid_date, and the new delays.py), taken from the TSK-01 and TSK-02 budgets. Secrets for all environments come from the approved DE-02 output: none are required. A verifier subagent checked the draft against the sources. I then fixed what it found: an unsupported 'empty when unpaid' phrase, unsourced statements about DE-07's role, present-tense wording for code that TSK-01 has not yet written, and two inferences that I now mark as agent judgement. Shell commands are not allowed in this step, so I used no Bash.",
+  "approach": "I followed the DE-04 procedure in the data-engineering-steps skill. First I read the four contracted inputs: feat.tasks, feat.design, org.data_model and task.repo_access. Then I read the existing ap_pipeline sources and pipelines: the tool view of ingest, transform, dq, pipeline, schedule.json, __init__ and the tests, plus ci.py and data/sample_feed.csv, which I opened with Read and Glob. The G9 hook blocks shell commands in this step.\n\nI took background from journey:feat.clarifications (the CL-DE answers) and journey:task.db_changes, both read through context_get with receipts. For secrets in all environments I used the approved DE-02 task.secrets_scope file. I classified each existing element by layer and chose the smallest change set. There is no new source or pipeline, and parse_feed is unchanged because it is header-driven. The optional column is let in with an additive update to transform.to_model (TSK-01). The new delays.py (TSK-02) is listed and left to DE-07 for detail.\n\nThe output file already held a stale DE-07 version from an earlier run, and I overwrote it with the DE-04 content. A verifier subagent then checked the draft. It found three issues, which I fixed: the source for \"empty when unpaid\" is now record:memory, the line about CI and tests is now labelled as agent judgement, and I added the context_list citation for the input commits. No connectors were needed.",
   "tools_used": [
-    "Skill:data-engineering-steps",
+    "Skill (data-engineering-steps)",
     "Read",
     "Glob",
-    "Grep",
-    "mcp:hobasa-context (context_list, context_get, memory_search)",
-    "Agent:verifier",
+    "mcp__hobasa-context__context_list",
+    "mcp__hobasa-context__context_get (feat.clarifications, task.db_changes)",
+    "mcp__hobasa-context__memory_search",
+    "Agent (verifier)",
     "Write",
     "Edit"
   ],
@@ -19,16 +20,17 @@
   "subagents_used": [
     "Agent"
   ],
-  "claims": 9,
+  "claims": 14,
   "automated_failures": [],
   "judge": {
     "unsupported": [],
     "improvements": [
-      "Section 1 leaves out `data/sample_feed.csv`, which is an existing source asset in ap_pipeline. It has the v2 header `invoice_id,vendor,due_date,amount,paid`. Add it to the inventory and say whether it stays at v2 (as v2-compatibility evidence) or gets a v3 sibling for the end-to-end synthetic feed.",
-      "Section 4 lists 'all environments' as local/CI, `dev` and `main`, which are branches. It does not cover the production runtime that will receive feed v3. Add an explicit row or open question for the production feed's delivery credential, tied to PQ-6 and DQ-1. Today this only appears in the SS-1 re-entry note.",
-      "Section 4's statement that 'the repository holds no feed connection, credential or workspace' cites tool:repo and task.repo_access P-1. P-1 covers only Databricks and workspaces. Also cite the permission-table result reported in task.secrets_scope ('no secrets required or granted') so the credential part is directly supported.",
-      "In IN-1, the label 'today's (v2) header' rests on feat.design B1.5, where `test_feed_v2_without_paid_date_column` loads a feed 'with today's header'. Cite B1.5 there, because the attached citations (`ingest.py`, tests) never use the word v2.",
-      "IN-1 introduces a 'source contract' update but does not name where that contract lives, other than org.data_model. Name the artefact to update, or mark it as already covered so DE-05 does not duplicate it."
+      "The output contradicts itself on whether ingestion needs code. The Result row and IN-2 say \"The ingestion layer needs no code change\", but the IN-3 row files the `transform.to_model` update under the \"Ingestion \u2192 model boundary\" layer. feat.design B1.1 and HC-1 treat that function as transform. State plainly whether DE-04 treats `to_model` as in scope for ingestion or hands it to DE-07, so the two steps do not both claim it.",
+      "Section 5 (secrets) does not carry SSQ-1 from task.secrets_scope section 6. SSQ-1 asks whether the runtime that runs `schedule.json` needs its own credential for the production feed. That is directly relevant to the workbook's \"Access for the secrets in all the environments\". Production is marked \"None / None / None\" without this caveat.",
+      "RAQ-1 from task.repo_access is not carried: `ci.py` imports the third-party `coverage` package, and nobody has confirmed it is installed for `/usr/bin/python3`. The output relies on the CI coverage gate (section 4), so the open dependency should be noted.",
+      "EX-1 says \"The repository holds no file, URL, connector or credential for it\" in the same cell that cites `data/sample_feed.csv`, a file of that feed. Narrow the claim to \"no production file path, URL, connector or credential\" so it does not contradict itself.",
+      "The requirement text \"optional paid_date column (ISO date, empty when unpaid)\" is cited as record:memory (journey requirement). It actually comes from the hook-injected journey context, not from memory/MEMORY.md. A more precise citation label would help reviewers trace it.",
+      "IN-7 and the section 4 file budget restate DE-07 transformation detail (`delays_by_vendor` signature, ordering, purity). That is fine for completeness, but a brief note that DE-07 is the authoritative owner would avoid divergence when DE-07 extends this file."
     ],
     "scores": {
       "correct": 5,
@@ -36,10 +38,10 @@
       "grounded": 5,
       "useful": 4
     },
-    "notes": "I checked every statement against feat.tasks (b0fd4d2), feat.design (722a98f), org.data_model, task.repo_access, the tool view of the ap_pipeline code, and the agent's own earlier outputs task.secrets_scope and task.db_changes. I found no hallucinations.\n\n**Facts checked against the sources:**\n- The code facts match `ingest.py`, `transform.py`, `dq.py`, `pipeline.py`, `schedule.json` (daily / 02:00 / Asia/Kolkata) and `__init__.py` (0.4.0).\n- The branch `feature/story` at `3fcbe1b` and write access match task.repo_access P-5 and P-6.\n- The TSK-01 must-not-change list (`ingest.py`, `dq.py`, `pipeline.py`, `schedule.json`) matches feat.tasks.\n- HC-3, DD-1, A1, A4, NF-4, B1.3 (a short row gives `None`), DQ-1 and the ZD-48470 / PQ-6 external dependency all match feat.design.\n- The `paid_date` field and 'added in feed v3' match org.data_model.\n- Secrets showing none required, granted or missing in local/CI, dev and main, plus SS-1, match task.secrets_scope.\n\n**Judgement calls:** R-I2 and CQ-I1 are clearly labelled as agent judgement or open questions, so they do not count against grounding.\n\n**Result:** the central finding (no ingestion code change; the feed v2\u2192v3 change is handled by the header-driven `csv.DictReader`; all changes sit in the TSK-01 and TSK-02 budgets) is consistent with the design and the code. It answers the workbook outcome with a minimum-lines list (IN-1 to IN-6) and covers secrets access.\n\n**Minor gaps:** the sample feed file is not inventoried, and production-environment secrets are deferred rather than listed per environment."
+    "notes": "I checked every statement in task.components.md against the 4 inputs (feat.tasks, feat.design, org.data_model, task.repo_access), the step brief and its tool view, and the extra files the agent read: ap_pipeline/ci.py, data/sample_feed.csv, ap_pipeline/CLAUDE.md, task.secrets_scope.md, task.db_changes.md, feat.clarifications CL-DE1 to CL-DE11, the data-engineering-steps SKILL.md and the hook journey context. I found no hallucinations. Each claim matched its source:\n- The code descriptions of EX-2 to EX-8 match the tool view: DictReader over StringIO, the four exception types, the reject dict shape, quality_report keys, schedule daily/02:00/Asia/Kolkata, version 0.4.0, and the three named tests with inline feeds.\n- The sample feed header `invoice_id,vendor,due_date,amount,paid` matches data/sample_feed.csv.\n- The CI details (coverage of at least 90.0 over src/ap_pipeline; static checks for print, eval, exec, bare except and lines over 140) match ci.py.\n- The IN-3 algorithm matches feat.design B1.2, feat.tasks TSK-01 notes 1 to 3 and CL-DE1/CL-DE2.\n- Must-not-change files, the test names, the file budgets, the version-step owner and the no-`__all__` rule (CL-DE9/DQ-4) all match feat.tasks and feat.design.\n- Short-row None and v2 compatibility match feat.design B1.3 and NF-4.\n- \\\"No secret in any environment\\\", across dev, integration and prod, matches task.secrets_scope sections 2 and 3.\n- No new storage matches feat.design DD-1 and A1 and task.db_changes section 4.\n- PQ-6, ZD-48470 and feed v2 match feat.design Part C.\n\nAll the commit hashes and IDs (TSK, HC, DD, CL, OQ, TQ, DQ, PQ) appear in the sources. Measured against the workbook outcome, the output gives a clear list of sources and pipelines to create or update, with a minimal-change rationale and a secrets view per environment. The main gaps are internal framing (is `to_model` ingestion or transform?) and two open items from earlier steps (SSQ-1, RAQ-1) that were not carried into the secrets and CI sections."
   },
-  "turns": 32,
-  "seconds": 234.7,
+  "turns": 28,
+  "seconds": 316.6,
   "denied_by_hooks": [
     "G9: step DE-04 may run only no shell commands"
   ],
