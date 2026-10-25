@@ -1,12 +1,13 @@
 # org.calendar_rules
 
-Source: hobasa-agentic-sdlc/org/org.calendar_rules.md at commit 9404ef3. Iteration: ITER-2026-10 (trigger date 2026-10-25).
+Source: hobasa-agentic-sdlc/org/org.calendar_rules.md (input at commit 9690c9b). Iteration: ITER-2026-10 (trigger date 2026-10-25).
 
 ## System demo
 - Held 24 October 2026 at 15:00.
 
 ## PROD window
 - 11:00-12:00 on the day after the system demo, which is 25 October 2026.
+- The window date equals the trigger date of this step (2026-10-25).
 
 ## Timezone
 - Asia/Kolkata.
@@ -14,8 +15,12 @@ Source: hobasa-agentic-sdlc/org/org.calendar_rules.md at commit 9404ef3. Iterati
 ## Holidays
 - None in the window.
 
-## Not recorded (not in the source)
-- Iteration start and end dates for ITER-2026-10.
-- Release train dates.
+## Iteration dates
+- Not recorded: iteration start and end dates for ITER-2026-10 are not in the source. Left blank, not guessed.
 
-These two items are not in the source file, so they are left blank rather than guessed.
+## Release train dates
+- Not recorded: release train dates are not in the source. Left blank, not guessed.
+
+## Open items for the approver
+- Provide the ITER-2026-10 iteration start and end dates and the release train dates.
+- Confirm the holiday list (source says none in the window) and that the PROD window falls on a working day.
