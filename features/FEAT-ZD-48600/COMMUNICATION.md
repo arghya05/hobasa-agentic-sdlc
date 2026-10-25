@@ -57,3 +57,22 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 11:36:17**
 
 ✅ **REQ-03 Product Fitment Validation** (Requirement agent): done. Outputs: [feat.fitment](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.fitment.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-03/README.md). Decisions: PM: approve by sim.pm; Leadership: approve by sim.leadership.
+
+---
+**2026-10-25 11:45:45**
+
+⚠️ **REQ-04 blocked** after its bounded attempts. *SIMULATED exception resolution by PM: one more bounded round in the same session with every refusal reason.*
+
+- G1 judge found an unsupported statement: "SM-5 | ... The new behaviour comes from new functions (`delays_by_vendor`, `vendor_risk`, `overdue_with_risk`, `renderOverdueRisk`). The only change to an exist" (The cited source says otherwise. feat.classification (line 27) says "Two changes touch existing
+- G1 judge found an unsupported statement: "The outcome delivers the roadmap item R-AP-12, "give AP managers earlier visibility of overdue payables" (Q4 2026 roadmap, AP module)." (feat.fitment only says, as agent judgement, that the entry "matches" R-AP-12 and "fits" it. Saying it "delivers" the road
+- G1 judge found an unsupported statement: "Every rule in this BRD is explicit. The vendor risk rule "uses no LLM; it is a rule on the predicted delay". An invalid `paid_date` is rejected with a named rea" (The quoted facts are supported. The claim that these support the auditability promise is labell
+
+---
+**2026-10-25 11:50:06**
+
+⏸ **Gate REQ-04 BRD Preparation** needs **Leadership**. Review [feat.brd](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.brd.md) and the [step record](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-04/README.md) (checks and independent judge passed). Reply `/approve REQ-04 Leadership scores=c,c,g,u <comment>` or `/reject REQ-04 Leadership: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 11:50:08**
+
+✅ **REQ-04 BRD Preparation** (Requirement agent): done. Outputs: [feat.brd](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.brd.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-04/README.md). Decisions: Leadership: approve by sim.leadership.

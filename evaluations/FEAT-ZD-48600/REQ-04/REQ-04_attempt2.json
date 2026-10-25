@@ -1,0 +1,49 @@
+{
+  "trace": "FEAT-ZD-48600",
+  "step": "REQ-04",
+  "agent": "Requirement",
+  "attempt": 2,
+  "resumed_session": true,
+  "approach": "Attempt 2 fixes both refusal reasons, and feat.brd is rewritten in full. (1) Every citation that used the journey: prefix now uses the allowed file:<repository>/<path> form: file:hobasa-requirement-agent/outputs/FEAT-ZD-48600/feat.prebacklog.md and file:hobasa-requirement-agent/outputs/FEAT-ZD-48600/feat.classification.md. This covers OS-4, OS-6, OS-7, BR-7, SM-2, BQ-9, B-A2 to B-A5, B-A7, OQ-B5, OQ-B6, OQ-B8 and the validation table. A Grep of the rewritten file finds no remaining 'journey:' string. (2) SM-3 no longer says amounts 'stay Decimal from the feed to the portal'. It now follows the architecture override in requirements/ZD-48600.md for each place the amount lives. The Invoice amount is Decimal (2 dp), and Decimal arithmetic is kept (D-2026-044, L-011). JSON between services carries the amount as a two-decimal string. The Node.js ap_portal table shows it to two decimals. How ap_portal handles the string internally is not stated anywhere, so it is now open question OQ-B10 for the PRD and TRD instead of a claim. B-A7 and the D-2026-044 validation row were aligned to match. Everything else carries over from attempt 1: the template-ordered sections, the business question set, the validation check and the verifier fixes.",
+  "tools_used": [
+    "Skill:requirement-steps",
+    "Read",
+    "Glob",
+    "Grep",
+    "mcp__hobasa-context__context_list",
+    "mcp__hobasa-context__context_get",
+    "mcp__hobasa-context__memory_search",
+    "Write",
+    "Edit",
+    "Agent:verifier"
+  ],
+  "connector_calls": [],
+  "subagents_used": [
+    "Agent"
+  ],
+  "claims": 18,
+  "automated_failures": [
+    "G1 judge found an unsupported statement: \"SM-5 | No existing function signature changes. | feat.intake\" (This rewords the source too strongly. feat.intake gives the architecture rule as \"Keep every existing signature; add new functions\". The same source, in CR-4, s)"
+  ],
+  "judge": {
+    "unsupported": [
+      {
+        "text": "SM-5 | No existing function signature changes. | feat.intake",
+        "why": "This rewords the source too strongly. feat.intake gives the architecture rule as \"Keep every existing signature; add new functions\". The same source, in CR-4, says `build_explanation_request` \"gains an optional risk argument\", so that function's signature does change, even though the change is additive. The BRD admits this in OS-6: \"Only two changes touch existing behaviour, and 'both are additive'\". As written, SM-5 is a success measure that CR-4 would fail. It should say that existing signatures stay backward-compatible, with optional additions only, and cite feat.classification for the 'additive' wording."
+      }
+    ],
+    "scores": {
+      "correct": 5,
+      "complete": 5,
+      "grounded": 4,
+      "useful": 5
+    },
+    "notes": "I checked the BRD statement by statement against these files:\n- the five inputs: feat.fitment, feat.intake, org.templates, org.strategy_capability and org.decision_log;\n- the other GitHub files the agent read: requirements/ZD-48600.md, feat.prebacklog, feat.classification and COMMUNICATION.md;\n- the brief and memory.\n\n**Both refusal points are fixed.**\n1. SM-3 no longer says amounts \"stay Decimal from the feed to the portal\". It now gives the representation at each point:\n   - Invoice amount is Decimal, 2 dp (ZD-48600 data model).\n   - Amounts travel as two-decimal strings in the JSON between services (ZD-48600 architecture).\n   - ap_portal is Node.js and shows the amount to two decimals (ZD-48600; CR-6).\n   - How ap_portal handles the amount internally is now an open question (OQ-B10).\n2. Every journey: citation is now file:hobasa-requirement-agent/outputs/FEAT-ZD-48600/feat.prebacklog.md or feat.classification.md. Both are in the list of files the agent read.\n\n**Numbers all trace to a source.**\n- 30 and 10, the >30 / >10 thresholds and 'two decimals': feat.intake CR-3, CR-5 and CR-6.\n- Bucket ranges: org.strategy_capability.\n- R-AP-12, R-AP-14, Q4 2026, T2, REG-LPR-2026-4.2 (more than 60 days), PROV-ACME-2026-11, acme-text-2/3, 2026-12-01, and feed v2/v3 with ZD-48470: feat.fitment.\n- 2026-10-24: feat.intake.\n- D-2026-031, D-2026-044 and D-2026-050: org.decision_log.\n- L-007 and L-011: memory.\n\n**Derived statements follow from their sources.** Exactly 30 days past due is not listed (prebacklog L-007 row). The strict thresholds give 'medium' at exactly 30 and 'low' at exactly 10 (labelled agent judgement).\n\n**Prior steps are reported accurately.**\n- The REQ-03 approval by PM and Leadership matches COMMUNICATION.md.\n- Open-question owners match their raising step:\n  - FQ-1: PM / Leadership.\n  - Classification OQ-1: \"needs a PM decision\".\n  - The rest are correctly marked \"Not recorded\".\n- The risk-class values and column names (BR-14, section 2) come from the design-library override in ZD-48600.md.\n\n**Template and workbook action are covered.**\n- All eight BRD template sections are present, in template order.\n- The business question set is present. The BRD states that org.templates has no question set, though the brief says it has one, and raises this as OQ-B7.\n- The validation check covers the decision log, the template, all change requests and fitment consistency. Its no-conflict result is accurate.\n\n**Minor points (not counted as unsupported):**\n- OQ-B5, OQ-B6 and OQ-B8 repeat classification OQ-1 and prebacklog Q-4 and Q-5, which the closing line also carries forward wholesale. This is duplication, not an error.\n- Line 25's \"in an AP context the vendor is the party being paid\" is feat.fitment's agent judgement. The BRD cites it to FQ-1 but does not label it agent judgement itself.\n- \"Every rule in this BRD is explicit\" (section 2) is a self-assessment, but it is reasonable.\n\n**The one real issue is SM-5.** It overstates \"Keep every existing signature\" as \"No existing function signature changes\", which contradicts CR-4 and the BRD's own OS-6."
+  },
+  "turns": 4,
+  "seconds": 150.1,
+  "denied_by_hooks": [
+    "G9: step REQ-04 may run only no shell commands"
+  ],
+  "capability_requests": []
+}
