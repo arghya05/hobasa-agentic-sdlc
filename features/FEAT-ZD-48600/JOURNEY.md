@@ -2,7 +2,7 @@
 
 **Requirement:** AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it   
 **Source:** Zendesk ticket ZD-48600 (sample, synthetic) (Customer Feedback) · **classified:** New Feature · **fitment:** Yes · **route:** full · **repositories:** ap_aging, ap_forecast, ap_pipeline, ap_portal  
-**Gates:** SIMULATED (automated test) · updated 2026-10-25 14:32
+**Gates:** SIMULATED (automated test) · updated 2026-10-25 14:35
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -11,9 +11,9 @@ Every agent reads this board at session start. Approved outputs below are readab
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
    - Backend: ✓ BE-01 → ✓ BE-02 → ✓ BE-03 → ✓ BE-04 → ▶ BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
-   - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ▶ DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
+   - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ✗ DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
    - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ✓ DE-04 → ✓ DE-05 → ✓ DE-06 → ▶ DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
-   - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → ✓ FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
+   - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → ✓ FE-04 → ▶ FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
 ## Done so far (newest last)
@@ -50,9 +50,14 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 28 | DE-05 Data Model Changes | Data Engineering | [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md) · [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md) | I followed the DE-05 procedure in the data-engineering-steps skill, which reads task.components and org.data_model and writes feat.data_model_change. I read both contracted inputs, the ap_pipeline tool view and the shared memory and journey board. Through context_list and context_get I read the approved feat.design (DES-02) as background, with a receipt, to ground the DC-1/DC-2 contracts and the B | Data engineer: approve by sim.data_engineer | scores {'correct': 5, 'complete': 5, 'grounded': 5, 'useful': 5} | 1 |
 | 29 | DE-06 Data Mapping | Data Engineering | [feat.mappings](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.mappings.md) · [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-06/README.md) | I followed the DE-06 procedure in the data-engineering-steps skill, which reads feat.data_model_change and org.customer_mappings and writes feat.mappings. I read both contracted inputs, the shared memory and journey board, and the ap_pipeline tool view. I also read data/sample_feed.csv from the checkout to see which feed version the repository exercises. I compared the vendor's v3 contract with th | Data engineer: approve by sim.data_engineer | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 5} | 2 |
 | 30 | FE-04 Coding | Frontend | [task.code](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.code.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-04/README.md) | I followed the frontend-steps FE-04 procedure and read the contracted inputs: task.components, feat.design, feat.stories, feat.screens, org.design_library, org.engineering_stack and org.lessons. I read every repository file I cite with the Read tool: src/ap_portal/index.js, CLAUDE.md, package.json, ci.mjs, README.md and docs/ap_portal.md.  In src/ap_portal/index.js I implemented task.components se | — | scores {'correct': 4, 'complete': 3, 'grounded': 5, 'useful': 4} | 4 |
+| 31 | DS-05 Coding | Data Science | — · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-05/README.md) | I read the DS-05 inputs (task.components at f956a35, feat.design, feat.stories, org.engineering_stack, org.lessons) and the repository's ci.py and CLAUDE.md with the Read tool. I implemented the minimum design from task.components: CMP-1, a new risk.py with vendor_risk; CMP-2, the __init__ export and a minor version step; CMP-3, an additive risk=None last parameter in explain.py. Each has docstrin | — | — | 6 |
 
 ## Running now
 
 - BE-05 Coding (Backend)
 - DE-07 Identify the sources/pipelines to be changed (Transformation) ⁵ (Data Engineering)
-- DS-05 Coding (Data Science)
+- FE-05 Unit Test Cases (Frontend)
+
+## Exceptions waiting for a person
+
+- DS-05: G1 judge found an unsupported statement: "(judge did not finish)" (You've hit your session limit · resets 6:30pm (Asia/Calcutta))
