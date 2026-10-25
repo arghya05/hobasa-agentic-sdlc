@@ -62,3 +62,18 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 20:49:41**
 
 ✅ **BE-03 Database changes** (Backend agent): done. Outputs: [task.db_changes](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.db_changes.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-03/README.md). Decisions: Developer: approve by sim.developer.
+
+---
+**2026-10-25 20:50:20**
+
+⏸ **Gate DE-02 Access to secrets** needs **Data engineer**. Review [task.secrets_scope](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md) and the [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-02/README.md) (checks and independent judge passed). Reply `/approve DE-02 Data engineer scores=c,c,g,u <comment>` or `/reject DE-02 Data engineer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 20:50:21**
+
+✅ **DE-02 Access to secrets** (Data Engineering agent): done. Outputs: [task.secrets_scope](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-02/README.md). Decisions: Data engineer: approve by sim.data_engineer.
+
+---
+**2026-10-25 20:50:22**
+
+⏸ **Gate DS-03 Database changes** needs **Developer**. Review [task.db_changes](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.db_changes.md) and the [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-03/README.md) (checks and independent judge passed). Reply `/approve DS-03 Developer scores=c,c,g,u <comment>` or `/reject DS-03 Developer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
