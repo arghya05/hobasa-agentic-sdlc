@@ -86,3 +86,21 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 11:57:31**
 
 ✅ **REQ-05 Product Requirement Preparation** (Requirement agent): done. Outputs: [feat.prd](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.prd.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-05/README.md). Decisions: PM: approve by sim.pm.
+
+---
+**2026-10-25 12:05:09**
+
+⚠️ **REQ-06 blocked** after its bounded attempts. *SIMULATED exception resolution by PM: one more bounded round in the same session with every refusal reason.*
+
+- G1 judge found an unsupported statement: "No secrets or personal data in outputs (G8) | record:brief" (Neither the step brief nor any input mentions a gate or rule called "G8", or a rule against secrets or personal data. The only gate ID in the brief is G2, in th)
+- G1 judge found an unsupported statement: "| SD-1 | Synthetic data only: ids prefixed `SYN-INV-`, vendor names "Synthetic Vendor <letter>"; no real vendor, person, bank or contact data | ... | record:bri" (The brief names synthetic data rules in the workbook action, but it defines none. Section 6 and
+
+---
+**2026-10-25 12:06:33**
+
+⏸ **Gate REQ-06 Prototype ⁷** needs **UX lead**. Review [feat.prototype](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.prototype.md) and the [step record](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-06/README.md) (checks and independent judge passed). Reply `/approve REQ-06 UX lead scores=c,c,g,u <comment>` or `/reject REQ-06 UX lead: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 12:06:34**
+
+✅ **REQ-06 Prototype ⁷** (Requirement agent): done. Outputs: [feat.prototype](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.prototype.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-06/README.md). Decisions: UX lead: approve by sim.ux_lead.

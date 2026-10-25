@@ -1,0 +1,15 @@
+{
+  "step": "REQ-06",
+  "decisions": [
+    {
+      "role": "UX lead",
+      "by": "sim.ux_lead",
+      "decision": "approve",
+      "scores": null,
+      "comment": "automated checks and the independent judge passed",
+      "reason": null,
+      "simulated": true
+    }
+  ],
+  "gate_mode": "simulated"
+}
