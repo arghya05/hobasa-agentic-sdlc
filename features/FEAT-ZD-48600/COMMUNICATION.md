@@ -261,3 +261,8 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 14:02:27**
 
 ✅ **BE-06 Unit Test Cases** (Backend agent): done. Outputs: [task.unit_tests](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.unit_tests.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-06/README.md).
+
+---
+**2026-10-25 14:02:55**
+
+✅ **DS-06 Unit Test Cases** (Data Science agent): done. Outputs: [task.unit_tests](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.unit_tests.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-06/README.md).
