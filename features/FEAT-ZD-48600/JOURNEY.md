@@ -2,7 +2,7 @@
 
 **Requirement:** AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it   
 **Source:** Zendesk ticket ZD-48600 (sample, synthetic) (Customer Feedback) · **classified:** New Feature · **fitment:** Yes · **route:** full · **repositories:** ap_aging, ap_forecast, ap_pipeline, ap_portal  
-**Gates:** SIMULATED (automated test) · updated 2026-10-25 14:22
+**Gates:** SIMULATED (automated test) · updated 2026-10-25 14:23
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -10,10 +10,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
-   - Backend: ✓ BE-01 → ✓ BE-02 → · BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
+   - Backend: ✓ BE-01 → ✓ BE-02 → ▶ BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
    - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ▶ DS-04 → · DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
    - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ▶ DE-04 → · DE-05 → · DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
-   - Frontend: ✓ FE-01 → ✓ FE-02 → ▶ FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
+   - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
 ## Done so far (newest last)
@@ -42,9 +42,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 20 | BE-01 Checking the coding prerequisites ⁶ | Backend | [task.repo_access](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-01/README.md) | I took the Backend lane's tasks from feat.tasks: TSK-05 and TSK-06, both in ap_aging. I checked availability, branches and write access against the tool view (tool:repo-access) and org.engineering_stack. Shell commands are blocked for this step, so I read the git metadata files directly (HEAD, the branch reflogs, packed-refs, config). I also read the repository files (ap_aging/CLAUDE.md, __init__. | — | scores {'correct': 5, 'complete': 5, 'grounded': 5, 'useful': 5} | 5 |
 | 21 | DS-03 Database changes | Data Science | [task.db_changes](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.db_changes.md) · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-03/README.md) | I read both contracted inputs (feat.tasks, feat.design) to find any storage needs for the Data Science lane (TSK-03, TSK-04 in ap_forecast). Then I checked the repository directly: I listed its files, searched it for database and migration terms, and read predict.py and explain.py. The design puts storage, databases and schema migration out of scope, and the repository has no database, so no datab | Developer: approve by sim.developer | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 1 |
 | 22 | BE-02 Access to secrets | Backend | [task.secrets_scope](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-02/README.md) | I followed the BE-02 procedure in the backend-steps skill. First I read feat.tasks to find the Backend tasks: TSK-05 and TSK-06, both in ap_aging. For each one I checked whether it touches anything external: a service, database, API, LLM or transport. Next I compared the secrets those tasks need with what the tool:repo-access view of the permission table grants. The permission table itself is rest | — | scores {'correct': 5, 'complete': 5, 'grounded': 5, 'useful': 4} | 1 |
+| 23 | FE-03 Identify the components/layers to be changed | Frontend | [task.components](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.components.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-03/README.md) | I followed the FE-03 procedure in the frontend-steps skill. I read all six contracted inputs, focusing on TSK-07, STORY-07, feat.design HC-8/HC-9 and B4, and feat.trd IF-7, F-12, F-13 and C-8/C-9. I re-read task.repo_access at its current commit. I then read every file in the ap_portal working tree with the Read tool: CLAUDE.md, package.json, ci.mjs and README.md, plus index.js and portal.test.js  | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 5} | 2 |
 
 ## Running now
 
+- BE-03 Database changes (Backend)
 - DE-04 Identify the sources/pipelines to be changed (Ingestion) ⁵ (Data Engineering)
 - DS-04 Identify the components/layers to be changed (Data Science)
-- FE-03 Identify the components/layers to be changed (Frontend)
