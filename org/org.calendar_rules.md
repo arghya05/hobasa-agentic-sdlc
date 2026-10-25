@@ -1,6 +1,6 @@
 # org.calendar_rules
 
-Source: hobasa-agentic-sdlc/org/org.calendar_rules.md (input at commit 9690c9b). Iteration: ITER-2026-10 (trigger date 2026-10-25).
+Source: hobasa-agentic-sdlc/org/org.calendar_rules.md (input at commit 2038404). Iteration: ITER-2026-10 (trigger date 2026-10-25).
 
 ## System demo
 - Held 24 October 2026 at 15:00.

@@ -2,7 +2,7 @@
 
 **Requirement:** Iteration cycle ITER-2026-10  
 **Source:** iteration calendar (scheduler) · **classified:** — · **fitment:** — · **route:** — · **repositories:** ap_aging  
-**Gates:** SIMULATED (automated test) · updated 2026-10-25 11:09
+**Gates:** SIMULATED (automated test) · updated 2026-10-25 12:31
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -14,4 +14,4 @@ Every agent reads this board at session start. Approved outputs below are readab
 
 | # | Step | Agent | Outputs in GitHub | Approach and summary | Human decision | Judge | Attempts |
 |---|---|---|---|---|---|---|---|
-| 1 | SCH-P01 Maintain calendar rules | Scheduler | [org.calendar_rules](https://github.com/arghya05/hobasa-agentic-sdlc/blob/main/org/org.calendar_rules.md) · [step record](https://github.com/arghya05/hobasa-scheduler-agent/blob/main/steps/ITER-2026-10/SCH-P01/README.md) | I rewrote the output so it doesn't name an owner for the gate, since no input names one. The heading is now "Open items for the approver". The facts are unchanged and come only from the input. The missing iteration and release train dates are still marked "not recorded", not guessed. I rewrote org/org.calendar_rules.md without the unsupported statement that the RTE owns the gate. The file keeps th | RTE: approve by sim.rte | scores {'correct': 5, 'complete': 3, 'grounded': 5, 'useful': 3} | 2 |
+| 1 | SCH-P01 Maintain calendar rules | Scheduler | [org.calendar_rules](https://github.com/arghya05/hobasa-agentic-sdlc/blob/main/org/org.calendar_rules.md) · [step record](https://github.com/arghya05/hobasa-scheduler-agent/blob/main/steps/ITER-2026-10/SCH-P01/README.md) | Read the single input and the scheduler-steps skill. The input already held the system demo, PROD window, timezone and holidays, so I kept those unchanged. I searched the repository for iteration and release train dates and found none, so those sections stay "not recorded" and are not guessed. I used no connector. A shell command was blocked by the G9 hook for this step, so I did not diff the inpu | RTE: approve by sim.rte | scores {'correct': 5, 'complete': 3, 'grounded': 5, 'useful': 3} | 1 |
