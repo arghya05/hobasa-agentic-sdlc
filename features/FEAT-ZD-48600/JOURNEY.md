@@ -2,7 +2,7 @@
 
 **Requirement:** AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it   
 **Source:** Zendesk ticket ZD-48600 (sample, synthetic) (Customer Feedback) · **classified:** New Feature · **fitment:** Yes · **route:** full · **repositories:** ap_aging, ap_forecast, ap_pipeline, ap_portal  
-**Gates:** SIMULATED (automated test) · updated 2026-10-25 14:03
+**Gates:** SIMULATED (automated test) · updated 2026-10-25 14:06
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -12,8 +12,8 @@ Every agent reads this board at session start. Approved outputs below are readab
 2. **In parallel**, one lane per coding agent (each lane in sequence):
    - Backend: ✓ BE-01 → ✓ BE-02 → ✓ BE-03 → ✓ BE-04 → ✓ BE-05 → ✓ BE-06 → ▶ BE-07 → · BE-08 → · BE-09 → · BE-10
    - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ✓ DS-05 → ✓ DS-06 → ▶ DS-07 → · DS-08 → · DS-09 → · DS-10
-   - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ✓ DE-04 → ✓↻ DE-05 → ✓ DE-06 → ✓ DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
-   - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → ▶ FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
+   - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ✓ DE-04 → ✓↻ DE-05 → ✓ DE-06 → ✓ DE-07 → ▶ DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
+   - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → ✗ FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
 ## Done so far (newest last)
@@ -54,9 +54,14 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 32 | BE-06 Unit Test Cases | Backend | [task.unit_tests](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.unit_tests.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-06/README.md) | Attempt 3 fixes the remaining G2 refusal: the result no longer cites file:ap_aging/ci.py anywhere. The 90% coverage gate is cited from task.code, which states it. The CI outcome is cited from the CI run in this step, under tool:repo. Exact CI figures are left to the spine's CI record, as task.code does. I re-ran /usr/bin/python3 ci.py in this attempt and it passed. The tests in tests/test_overdue. | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 3 |
 | 33 | DS-06 Unit Test Cases | Data Science | [task.unit_tests](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.unit_tests.md) · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-06/README.md) | Attempt 3 fixes the G2 and G3 refusals by changing only the citations. No test or code changed. The checker does not count file: citations for the test files or ci.py, but the tool view (tool:repo) holds tests/test_risk.py and tests/test_forecast.py in full. Every statement about the tests now cites tool:repo. The 90% gate cites record:brief, which says "at least 90 percent". The CI figures are no | — | scores {'correct': 5, 'complete': 5, 'grounded': 4, 'useful': 5} | 3 |
 | 34 | DE-07 Identify the sources/pipelines to be changed (Transformation) ⁵ | Data Engineering | [task.components](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/task.components.md) · [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-07/README.md) | The step was refused twice for G2 because the citation file:ap_pipeline/CLAUDE.md did not resolve, even after I opened that file with Read in attempt 2. The check apparently does not count that read as a received context item. In attempt 3 I removed every citation of that file from the output and the claims. Each fact it supported is now cited to the contracted inputs or the tool view instead: the | Data engineer: approve by sim.data_engineer | scores {'correct': 5, 'complete': 4, 'grounded': 4, 'useful': 5} | 3 |
+| 35 | FE-04 Coding | Frontend | — · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-04/README.md) | The refusal flagged the git diff line counts and the component tallies in the files-changed table. Neither appears in any source. I re-read the updated task.components input (revision dbdee67), whose content is unchanged, and re-ran `node ci.mjs` and git status to confirm the working tree.  I then rewrote task.code.md in full with these changes: - The git diff statistics and the CI percentages and | — | scores {'correct': 4, 'complete': 4, 'grounded': 4, 'useful': 4} | 6 |
 
 ## Running now
 
 - BE-07 Commit & Push (Backend)
+- DE-08 Coding (Data Engineering)
 - DS-07 Commit & Push (Data Science)
-- FE-04 Coding (Frontend)
+
+## Exceptions waiting for a person
+
+- FE-04: G1 judge found an unsupported statement: "This step's tool policy allows only `node ci.mjs` and git read commands, so the new function could not be run against a scratch test." (None of the sources supports this description of the tool policy. The brief (record:brief) only says to run the CI with `n
