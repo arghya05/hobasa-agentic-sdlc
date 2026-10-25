@@ -2,7 +2,7 @@
 
 **Requirement:** AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it   
 **Source:** Zendesk ticket ZD-48600 (sample, synthetic) (Customer Feedback) · **classified:** New Feature · **fitment:** Yes · **route:** full · **repositories:** ap_aging, ap_forecast, ap_pipeline, ap_portal  
-**Gates:** SIMULATED (automated test) · updated 2026-10-25 21:01
+**Gates:** SIMULATED (automated test) · updated 2026-10-25 21:02
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -11,9 +11,9 @@ Every agent reads this board at session start. Approved outputs below are readab
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
    - Backend: ✓ BE-01 → ▶ BE-02 → · BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
-   - Data Science: ✓ DS-01 → · DS-02 → · DS-03 → · DS-04 → · DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
+   - Data Science: ✓ DS-01 → ▶ DS-02 → · DS-03 → · DS-04 → · DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
    - Data Engineering: ✓ DE-01 → ▶ DE-02 → · DE-03 → · DE-04 → · DE-05 → · DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
-   - Frontend: ✓ FE-01 → ▶ FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
+   - Frontend: ✓ FE-01 → ✓ FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
 ## Done so far (newest last)
@@ -36,9 +36,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 14 | FE-01 Checking the coding prerequisites ⁶ | Frontend | [task.repo_access](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-01/README.md) | I followed the FE-01 procedure in the frontend-steps skill. I read the two inputs, feat.tasks and org.engineering_stack, to find which repository the Frontend lane needs: ap_portal, for TSK-07. This step's hook blocks every shell command, so I did not run git. Instead I checked the claims in the tool view by reading the checkout's files directly: .git/HEAD, the refs and reflogs, .git/config, packa | — | scores {'correct': 5, 'complete': 5, 'grounded': 4, 'useful': 5} | 1 |
 | 15 | DE-01 Checking the coding prerequisites ⁹ | Data Engineering | [task.repo_access](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-01/README.md) | I read both contracted inputs (feat.tasks, org.engineering_stack). The step hook blocks shell commands in DE-01, so I checked ap_pipeline by reading its git metadata (.git/HEAD, .git/config, the HEAD, dev and feature/story reflogs) and its repository files with Read. The files were __init__.py, transform.py, ingest.py, dq.py, pipeline.py, schedule.json, ci.py, README.md, CLAUDE.md and tests/test_p | Data engineer: approve by sim.data_engineer | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 2 |
 | 16 | DS-01 Checking the coding prerequisites ⁶ | Data Science | [task.repo_access](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-01/README.md) | I read the two contracted inputs, feat.tasks and org.engineering_stack, along with the DS-01 procedure from the data-science-steps skill. feat.tasks shows the Data Science lane's tasks, TSK-03 and TSK-04, change only ap_forecast. This step allows no shell commands, so I checked the repository through file reads instead of git commands. I read .git/HEAD, .git/config, the dev and main refs, src/ap_f | — | scores {'correct': 5, 'complete': 5, 'grounded': 5, 'useful': 5} | 2 |
+| 17 | FE-02 Access to secrets | Frontend | [task.secrets_scope](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-02/README.md) | I followed the FE-02 procedure in the frontend-steps skill. First I read feat.tasks to find the Frontend task: TSK-07 in ap_portal, which renders HTML from given rows, uses no transport layer and touches only the files in its budget. The permission table is restricted, so I used the tool view's summary of it. Shell commands are blocked for FE-02, so I checked the ap_portal checkout with Glob, Grep | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 2 |
 
 ## Running now
 
 - BE-02 Access to secrets (Backend)
 - DE-02 Access to secrets (Data Engineering)
-- FE-02 Access to secrets (Frontend)
+- DS-02 Access to secrets (Data Science)
