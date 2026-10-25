@@ -4,39 +4,37 @@
   "agent": "Requirement",
   "attempt": 2,
   "resumed_session": true,
-  "approach": "Attempt 2 rewrites both files in full to fix all five G1 refusals. I removed every statement the inputs and brief do not support: the names of later steps (REQ-02, REQ-03, CMP-P01, Grouping), the PM gate for REQ-01, and the claim that the spine notifies the PM or starts another step. The entry status now follows the workbook outcome in the brief: \"entry created for review\". The notification section only quotes the brief's \"Notification sent\" outcome and says this agent has not sent one. The duplicate-check gap is phrased as a plain open question with no step owner. The rest of the method is unchanged from attempt 1. I read the ticket from the trigger record and the five contracted inputs (roadmap, regulatory sources, connector inventory, model dependency map, decision log), and used the shared memory already loaded (D-2026-031/044/050, L-007, L-011). I extracted the change requests, linked the item to roadmap R-AP-12, and checked it against decisions, connectors, regulatory sources and model dependencies. The Pre Backlog sheet and DevOps board were not in context, so they are an open question rather than a guess. The GitHub API was not called because the inputs do not name the repository owner or the board.",
+  "approach": "Attempt 2 fixes all three G2 refusals. In attempt 1 I had only seen requirements/ZD-48211.md, ZD-48501.md and ZD-48455.md as Grep matches and never read them. This time I read each one in full with Read before citing it. I also re-read the five contracted inputs and requirements/ZD-48600.md, so every cited source has a read in this session. Both output files are rewritten in full. Section 3 of feat.prebacklog now takes its received dates, status, repositories and overlap details straight from the files I read. The rest of the approach is unchanged. I split the ticket word for word into CR-0 to CR-7 and linked the entry to R-AP-12. I then checked it against the decision log (D-2026-031, D-2026-044 and D-2026-050) and lessons L-007 and L-011, and against the connector inventory, the regulatory sources and the model dependency map. The Pre Backlog sheet and DevOps board were not in context, so I disclosed that and checked the repository's requirement files instead. Gaps are recorded as labelled assumptions and non-blocking open questions. Shell use is denied in this step, so I used only Read, Glob, Grep and Write.",
   "tools_used": [
     "Skill:requirement-steps",
     "Read",
     "Glob",
-    "mcp__hobasa-context__context_list",
-    "mcp__hobasa-context__memory_search",
-    "Write",
-    "Edit"
+    "Grep",
+    "Write"
   ],
   "connector_calls": [],
   "subagents_used": [],
-  "claims": 9,
+  "claims": 12,
   "automated_failures": [
-    "G1 judge found an unsupported statement: \"`delay_days` is `(paid_date - due_date)` in days. Both should count calendar days after the due date. (feat.prebacklog.md, Decision log row D-2026-031)\" (Minor overreach. D-2026-031 covers only aging buckets ('aging buckets use calendar days after due date'). Applying it to the ap_pipeline delay_days history is t)"
+    "G1 judge found an unsupported statement: \"No source-system connector is affected. The inventory says so for ap_aging.\" (org.connector_inventory says only 'No source-system connector is affected by the ap_aging library.' The first sentence makes that a blanket claim for the whole )"
   ],
   "judge": {
     "unsupported": [
       {
-        "text": "`delay_days` is `(paid_date - due_date)` in days. Both should count calendar days after the due date. (feat.prebacklog.md, Decision log row D-2026-031)",
-        "why": "Minor overreach. D-2026-031 covers only aging buckets ('aging buckets use calendar days after due date'). Applying it to the ap_pipeline delay_days history is the agent's inference, not something the decision log says. It is worded as 'should' and the row is marked conditional, so the impact is low, but it should be shown as an assumption rather than as part of the decision."
+        "text": "No source-system connector is affected. The inventory says so for ap_aging.",
+        "why": "org.connector_inventory says only 'No source-system connector is affected by the ap_aging library.' The first sentence makes that a blanket claim for the whole change, including the ap_pipeline vendor-feed column change (CR-1). The inventory does not support that. The same row's OQ-3 and the vendor feed v3 note in ZD-48600.md show the question is still open, so the unqualified first sentence goes beyond the source."
       }
     ],
     "scores": {
       "correct": 5,
       "complete": 4,
-      "grounded": 5,
+      "grounded": 4,
       "useful": 5
     },
-    "notes": "Attempt 2 fixes all five refusal reasons from attempt 1. There are no more references to REQ-02/REQ-03, Grouping, a PM gate, CMP-P01, or the spine notifying the PM. The entry status is now 'Created for review', which matches the workbook outcome text 'Agent has created an entry for review'. The Notification section says plainly that the agent has not sent a notification itself.\n\nI checked each statement against its source:\n- Intake fields (channel, source, received 2026-10-24, GitHub link) and the verbatim text match record:intake exactly.\n- CR-1 to CR-7 restate the ticket accurately, including the thresholds 30 and 10, 'more than 30 days past due', the 'paid_date' reason, the 'unknown' risk, and the two-decimal amount.\n- The roadmap link R-AP-12, the decision not to link R-AP-14, 'Q4 2026, AP module' and 'Owner: PM' all match org.roadmap.\n- The three decisions D-2026-031, D-2026-044 and D-2026-050 are quoted correctly, and the 'no conflict' finding is reasonable.\n- The connector quote is exact. Saying the vendor-feed connector cannot be assessed, and raising OQ-1, is accurate, because the inventory covers only ap_aging.\n- The regulatory quote is exact.\n- The model map facts are exact: acme-llm, acme-text-2, src/ap_forecast/models.json, and vendor_risk using no LLM.\n- L-007 and L-011 match memory.\n\nCompleteness: the duplicate check against the Pre Backlog sheet and the DevOps board could not be done because neither was provided. The output says so and raises OQ-2 instead of making something up. External-pattern gathering does not apply to a ticket trigger, and the output reasonably leaves it out. Hand-off to another agent and the notification are honestly left to the spine.\n\nAssumptions A-1 to A-6 are clearly labelled as assumptions, each has a basis, and they are tied to open questions. The only small grounding issue is the one listed: D-2026-031 is extended to delay_days."
+    "notes": "I checked both outputs line by line against: the trigger (record:intake); the five inputs (org.roadmap, org.regulatory_sources, org.connector_inventory, org.model_dependency_map, org.decision_log); MEMORY.md (D-2026-031/044/050, L-007, L-011); and the GitHub files the agent read (requirements/ZD-48600.md, ZD-48211.md, ZD-48455.md, ZD-48501.md).\n\n**Previous refusal (G2) is resolved.** ZD-48211, ZD-48455 and ZD-48501 are now among the files the agent read, and every detail cited from them is accurate:\n- ZD-48211: received 2026-10-20, status open, repo ap_aging; asks for open invoices more than 30 days past due and an overdue count and total; paid invoices never count.\n- ZD-48455: received 2026-10-22, status open, repo ap_portal; covers the 61-90 and 'Over 90 days' rows, class row-overdue, and a total row. The 'aging summary table' reading is backed by its design_library and renderAgingSummary.\n- ZD-48501: received 2026-10-24, status open, repos ap_aging and ap_portal; covers overdue_summary(invoices, as_of) returning {'count': int, 'total': Decimal} and badge-overdue.\n\n**feat.intake.md**\n- The verbatim text, channel, source, received date 2026-10-24 and GitHub link match record:intake exactly.\n- The repository list matches the repos field in ZD-48600.md.\n- CR-0 to CR-7 are faithful splits of the ticket with nothing added.\n\n**feat.prebacklog.md**\n- Roadmap: the R-AP-12 link, Q4 2026, AP module and owner PM all match org.roadmap. Not linking R-AP-14 is a sound, justified choice.\n- Taken from the ZD-48600.md org_overrides and all accurate:\n  - routing to the four agents plus the Testing Agent\n  - item type New Feature\n  - the risk note (tier T2, label advisory only)\n  - vendor feed v3 with the daily 02:00 Asia/Kolkata schedule unchanged\n  - JSON amounts as two-decimal strings\n  - the risk-high, risk-medium, risk-low and risk-unknown class names\n- The model-map facts (acme-llm, acme-text-2, src/ap_forecast/models.json, vendor_risk uses no LLM) are accurate.\n- The regulatory 'not applicable' finding matches its input.\n- Decision and lesson references are accurate. Using L-007 for the >10 threshold is a reasonable extension, not an invented fact.\n- Assumptions A-1 to A-4 and open questions OQ-1 to OQ-7 are labelled as such and invent nothing.\n- Since the last evaluation, 'external patterns' and the transcript gateways are now covered as not applicable, with reasons.\n- The only grounding problem is the blanket connector sentence listed above. It is partly offset by OQ-3.\n\n**Completeness (why complete is 4)** \u2014 measured against the workbook outcome:\n1. No notification was sent. The output says so openly and offers the entry as the notification content.\n2. The Pre Backlog sheet and the DevOps board were not in context. A repository-requirements check was used instead, disclosed in OQ-1.\n3. Which agent is triggered next is not stated.\n\nApart from those gaps, the entry is created, linked to roadmap item R-AP-12 and trace FEAT-ZD-48600, and ready for PM review."
   },
-  "turns": 4,
-  "seconds": 84.7,
+  "turns": 13,
+  "seconds": 115.1,
   "denied_by_hooks": [
     "G9: step REQ-01 may run only no shell commands"
   ],
