@@ -4,12 +4,12 @@
   "agent": "Frontend",
   "attempt": 2,
   "resumed_session": true,
-  "approach": "I read feat.tasks to find the Frontend task, TSK-07 (STORY-07, ap_portal), a pure render function with no transport layer. I left org.permission_table unread because it is restricted and passed by reference only, and relied on the tool:repo-access view: no secrets are required or granted for ap_portal. To confirm the code needs no secrets, I read every file the task touches or runs: src/ap_portal/index.js, tests/portal.test.js, package.json and ci.mjs. I also searched the checkout for environment and network use with Grep. Required and granted access are both none, so there is no gap and nothing to request. I then rewrote task.secrets_scope.md in full with names only and a re-entry rule.",
+  "approach": "I read the TSK-07 Frontend task in feat.tasks to see what the change touches: one render helper, the version in package.json and the test file, with no transport. I checked that against the tool view for the restricted permission table, which says no secrets are required or granted for ap_portal. I then read the ap_portal source (index.js), the CI script (ci.mjs), package.json and the full test file (tests/portal.test.js) to confirm that nothing reads a secret. Required and granted secrets match (none on either side), so I raised no access request and wrote task.secrets_scope in full with names only.",
   "tools_used": [
-    "Skill (frontend-steps)",
+    "Skill:frontend-steps",
     "Read",
-    "Glob",
     "Grep",
+    "Glob",
     "Write"
   ],
   "connector_calls": [],
@@ -19,10 +19,9 @@
   "judge": {
     "unsupported": [],
     "improvements": [
-      "Section 4 names \"FE-04 Coding\" with no citation. FE-04 appears in the journey and the run's input folders, but none of the cited sources (feat.tasks, record:brief, the ap_portal files, tool:repo-access) gives it the name \"Coding\". Cite the step source, or just say \"before the coding step\".",
-      "The file ends with a stray line, \"[Tool result] [ap_portal] Tool registry: no secrets required or granted (permission table)\", after the Open questions section. It looks like a pasted tool echo. Remove it, or turn it into a proper sentence with a citation inside section 2.",
-      "The ci.mjs row says CI \"reads no secret\". It is worth adding that `{ ...process.env }` passes the whole inherited environment to the test run, so any secret in the CI environment would reach the tests even though the code does not read one. That makes the 'None' grant for CI more meaningful.",
-      "The environment rows (local, CI, dev/main) all rest on one repository-level statement in tool:repo-access. You could say plainly that the registry gives one answer for the whole repository, not one per environment, so a reader does not take it as three separate checks."
+      "Section 2 splits the grants into three environments (local/unit tests, dev, main), but the tool view only says no secrets are required or granted for the ap_portal repository as a whole. Say that the per-environment rows come from that repository-level statement. The dev/main branch names are in file:ap_portal/CLAUDE.md and feat.tasks section 2; cite those for the environment list.",
+      "The 'Transport, API or service call' row cites TSK-06 'Must not change' for a point about TSK-07's scope. Also citing TSK-07's own 'Must not change' and implementation notes (pure render helper, no row actions) would tie the claim to the frontend task directly.",
+      "The re-entry section says access requests go to 'the owner of the permission table' without naming that owner or the request channel (capability_request). It is marked as agent judgement, but naming the mechanism would make the step more actionable."
     ],
     "scores": {
       "correct": 5,
@@ -30,12 +29,10 @@
       "grounded": 5,
       "useful": 4
     },
-    "notes": "I checked every statement against feat.tasks, the brief's tool view and the four ap_portal files, and all of them hold:\n- **index.js:** it has only VERSION, LABELS, formatAmount and renderAgingSummary. There is no require, process.env or URL in it.\n- **package.json:** it declares no dependencies, and its only script is `ci`.\n- **ci.mjs:** it sets NODE_PATH 'src' and spreads process.env.\n- **portal.test.js:** it requires only node:test, node:assert and ap_portal.\n- **TSK-07 scope:** renderOverdueRisk, private helpers, the version step and tests in portal.test.js all match the task.\n- **TSK-06:** the task does say \"No transport layer (a transport would re-trigger DES-01)\".\n- **Branches:** feat.tasks section 2 names main and dev.\n\nThe citations for index.js and portal.test.js that were refused last time now point at files the agent was recorded as reading, and their content matches. No secrets are required and none are granted, which matches tool:repo-access, so the workbook outcome is met. The only uncited detail is the step name \"FE-04 Coding\" in the re-entry rule. It appears to be process knowledge, not an invented fact about the feature, so it is listed under improvements and does not block."
+    "notes": "I checked every statement against feat.tasks (TSK-07, TSK-06, intro DD-1, section 2), the tool view (no secrets required or granted for ap_portal) and the ap_portal files the agent read: package.json (version 2.3.0, no dependencies), ci.mjs (copies process.env and sets NODE_PATH 'src', reads no secret), src/ap_portal/index.js (no env reads or external calls) and tests/portal.test.js (requires node:test, node:assert and ap_portal; tests formatAmount and renderAgingSummary on literal values). All are accurately represented. The earlier refusal point is fixed: tests/portal.test.js is now in the list of files read, and its description matches the file. No invented facts, numbers or wrong citations. The outcome is met: none needed, none granted, no access request."
   },
   "turns": 5,
-  "seconds": 60.2,
-  "denied_by_hooks": [
-    "G9: step FE-02 may run only no shell commands"
-  ],
+  "seconds": 51.7,
+  "denied_by_hooks": [],
   "capability_requests": []
 }
