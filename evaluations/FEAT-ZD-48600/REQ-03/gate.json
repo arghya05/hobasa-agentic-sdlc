@@ -1,0 +1,24 @@
+{
+  "step": "REQ-03",
+  "decisions": [
+    {
+      "role": "PM",
+      "by": "sim.pm",
+      "decision": "approve",
+      "scores": null,
+      "comment": "automated checks and the independent judge passed",
+      "reason": null,
+      "simulated": true
+    },
+    {
+      "role": "Leadership",
+      "by": "sim.leadership",
+      "decision": "approve",
+      "scores": null,
+      "comment": "automated checks and the independent judge passed",
+      "reason": null,
+      "simulated": true
+    }
+  ],
+  "gate_mode": "simulated"
+}
