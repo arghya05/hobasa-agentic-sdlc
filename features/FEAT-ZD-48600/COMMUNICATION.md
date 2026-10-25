@@ -17,3 +17,13 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 10:51:01**
 
 ✅ **REQ-01 Requirement Intake** (Requirement agent): done. Outputs: [feat.intake](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.intake.md), [feat.prebacklog](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.prebacklog.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-01/README.md). Decisions: PM: approve by sim.pm.
+
+---
+**2026-10-25 10:55:22**
+
+⏸ **Gate REQ-02 Grouping** needs **PM**. Review [feat.classification](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.classification.md) and the [step record](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-02/README.md) (checks and independent judge passed). Reply `/approve REQ-02 PM scores=c,c,g,u <comment>` or `/reject REQ-02 PM: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 10:55:23**
+
+✅ **REQ-02 Grouping** (Requirement agent): done. Outputs: [feat.classification](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.classification.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-02/README.md). Decisions: PM: approve by sim.pm.
