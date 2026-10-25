@@ -57,3 +57,13 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 13:29:37**
 
 ✅ **DES-03 Understand HLD or LLD+ Doubts Clarifications** (Design agent): done. Outputs: [feat.clarifications](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.clarifications.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-03/README.md). Decisions: Architect: approve by sim.architect.
+
+---
+**2026-10-25 13:35:29**
+
+⏸ **Gate DES-04 Task Creation** needs **Developer**. Review [feat.tasks](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.tasks.md), [feat.tier](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.tier.md) and the [step record](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-04/README.md) (checks and independent judge passed). Reply `/approve DES-04 Developer scores=c,c,g,u <comment>` or `/reject DES-04 Developer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 13:35:30**
+
+✅ **DES-04 Task Creation** (Design agent): done. Outputs: [feat.tasks](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.tasks.md), [feat.tier](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.tier.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-04/README.md). Decisions: Developer: approve by sim.developer.
