@@ -4,31 +4,39 @@
   "agent": "Requirement",
   "attempt": 2,
   "resumed_session": true,
-  "approach": "Attempt 2 fixes both G1 refusals, and I rewrote feat.fitment in full.\n\n(1) I removed the claim that the entry supports 'help finance teams pay on time and avoid late-payment penalties'. Section 4 now quotes the strategy and the ticket side by side. It states that no input links them, and it passes that judgement to PM and Leadership as OQ-F1. The verdict now rests on the roadmap evidence only.\n\n(2) I renamed the 'Risk to the existing capability' row to 'Risk note recorded in the source file'. It now gives only the recorded content.\n\nI applied the same rule to other inferred wording:\n- I removed the 'same user, same object' equation between the roadmap and the ticket. The R-AP-12 link now cites the PM-approved REQ-01 record (feat.prebacklog).\n- I removed 'open (unpaid)' and 'delivers what the roadmap asks for'.\n- I limited the capability check to quoted facts, including the architecture's 'Keep every existing signature; add new functions'.\n\nInputs read: feat.classification, org.strategy_capability, org.roadmap. Background: journey:feat.intake and journey:feat.prebacklog, read via context_get in attempt 1, and requirements/ZD-48600.md.",
+  "approach": "Attempt 2 fixes the three G1 refusals and rewrites feat.fitment in full. (1) I removed \"Nothing is inferred silently\". The output now states only the sourced fact that a vendor not in risk_by_vendor gets risk 'unknown', and marks the auditability link as agent judgement. (2) I removed the claim that the ticket's wording \"is usually used for receivables\". FQ-1 now quotes the roadmap ('overdue payables') and the ticket ('vendors that usually pay late', 'chase them first'), and labels the ambiguity as agent judgement. (3) The 'Out of scope for the product?' row is replaced by 'Product scope boundaries'. It says org.strategy_capability states no out-of-scope list (new FQ-6) and uses the risk-map quote only as what it is: the source of the advisory tier. I checked every other statement for the same kind of overreach. Interpretive statements (roadmap match, capability build-on, strategy support, the delivery-risk split) are now labelled as agent judgement. I removed the inferred line 'api:github cannot send messages' and kept only that the connector is limited to GET requests. Inputs used: feat.classification, org.strategy_capability and org.roadmap, plus the ticket requirements/ZD-48600.md and REQ-LPR-2026-4.2.md for exact wording, and shared memory for decisions. No connector was used.",
   "tools_used": [
-    "Skill:requirement-steps",
     "Read",
-    "mcp__hobasa-context__context_list",
-    "mcp__hobasa-context__context_get",
-    "mcp__hobasa-context__memory_search",
     "Write"
   ],
   "connector_calls": [],
   "subagents_used": [],
-  "claims": 10,
-  "automated_failures": [],
+  "claims": 13,
+  "automated_failures": [
+    "G1 judge found an unsupported statement: \"ap_pipeline, ap_forecast and ap_portal are described only in the feature's architecture override.\" (The cited sources (org.strategy_capability and ZD-48600) cannot show that the override is the only place these repositories are described. org/org.engineering_s)",
+    "G1 judge found an unsupported statement: \"Agent judgement: explicit rules and named reject reasons support auditability and traceability.\" (This is minor and is marked as agent judgement. The plural 'named reject reasons' overstates the sources: ZD-48600 and feat.classification name only one new rej)"
+  ],
   "judge": {
-    "unsupported": [],
+    "unsupported": [
+      {
+        "text": "ap_pipeline, ap_forecast and ap_portal are described only in the feature's architecture override.",
+        "why": "The cited sources (org.strategy_capability and ZD-48600) cannot show that the override is the only place these repositories are described. org/org.engineering_stack.md also names ap_forecast, ap_pipeline and ap_portal and gives their languages and CI. The supported version of the point is narrower: org.strategy_capability (and org/org.architecture.md) describe only ap_aging's capability."
+      },
+      {
+        "text": "Agent judgement: explicit rules and named reject reasons support auditability and traceability.",
+        "why": "This is minor and is marked as agent judgement. The plural 'named reject reasons' overstates the sources: ZD-48600 and feat.classification name only one new reject reason, 'paid_date'."
+      }
+    ],
     "scores": {
-      "correct": 5,
-      "complete": 4,
-      "grounded": 5,
-      "useful": 4
+      "correct": 4,
+      "complete": 5,
+      "grounded": 4,
+      "useful": 5
     },
-    "notes": "I checked feat.fitment.md against feat.classification, org.strategy_capability, org.roadmap and requirements/ZD-48600.md. I also checked the approved journey outputs it cites (feat.intake, feat.prebacklog), JOURNEY.md, and the requirement-steps skill and agent README.\n\nBoth earlier refusal points are fixed:\n- (1) Section 4 no longer claims the entry supports \"help finance teams pay on time and avoid late-payment penalties\". It says no input makes that link and passes the question to PM and Leadership as OQ-F1.\n- (2) The capability row is now labelled \"Risk note recorded in the source file\", not \"risk to the existing capability\".\n\nStatements I verified:\n- The R-AP-12 and R-AP-14 text, Q4 2026, AP module and owner PM come from org.roadmap.\n- The capability text with buckets current, 1-30, 31-60, 61-90 and 90+ comes from org.strategy_capability.\n- The two strategy quotes come from org.strategy_capability.\n- CR-5 (`overdue_with_risk`, unpaid invoices more than 30 days past due) and CR-6 (`renderOverdueRisk`) come from feat.intake and feat.classification.\n- \"Keep every existing signature; add new functions\" comes from the org.architecture override in ZD-48600.md.\n- The risk note (no finance posting, authentication, tenancy or payment execution; tier T2; advisory only) comes from org.risk_map in ZD-48600.md.\n- REQ-01's link to R-AP-12, with the \"earlier visibility of overdue payables\" reasoning, is in feat.prebacklog. The PM approval of REQ-01 is in JOURNEY.md (\"PM: approve by sim.pm\"). JOURNEY.md also says approved outputs are cited as journey:<item>, so journey: citations are valid.\n- The decision log check (D-2026-031, D-2026-044 and D-2026-050 with no conflict) matches feat.prebacklog section 4 and MEMORY.md.\n- \"REQ-04 BRD\" matches the agent's README and the requirement-steps skill.\n- F-2 is correct: the REQ-03 skill section defines no fitment reason codes, so FIT-YES-ROADMAP is correctly flagged as a proposed code (OQ-F4).\n- The carried-forward OQ-A to OQ-D and OQ-F match feat.classification.\n\nMinor framing points, not unsupported:\n- The section 3 heading says the entry \"adds to the documented capability\". The documented capability is only aging buckets, and the overdue-with-risk list goes beyond that. The section body does say this correctly (CR-1 to CR-4 and CR-6 fall outside the documented capability, OQ-F2).\n- \"These do not affect the verdict\", about the carried-forward sequencing questions, is the agent's own judgement. It is reasonable.\n\nCompleteness and usefulness: the workbook asks for checks against capability, roadmap and strategy. The output gives a Yes verdict supported by the roadmap and the capability check. It openly leaves strategy fit unestablished, which is honest given the inputs, but the verdict depends on PM and Leadership settling OQ-F1. F-1 and OQ-F1 usefully point out a real ambiguity: in a payables module, vendors are payees, so \"vendors that usually pay late\" is unclear. No notification was sent. The output says it is the notification content and that sending is left to the workflow, which matches the outcome's PM and Leadership gate."
+    "notes": "All three refusal points from attempt 1 are fixed. (1) The sentence \"Nothing is inferred silently\" is gone; line 46 now states only that a vendor not in risk_by_vendor gets 'unknown', which ZD-48600 supports. (2) The receivables-wording claim was removed. FQ-1 now says \"Agent judgement: in an AP context the vendor is the party being paid\". That is still general domain knowledge rather than something a source states, but it is clearly marked as the agent's judgement and is used only to raise an ambiguity, so I accept it. (3) The risk-map quote is no longer presented as a product scope boundary. Line 39 says plainly that org.strategy_capability has no out-of-scope list (FQ-6) and quotes the risk map only as the source of the advisory tier.\n\nChecked and supported:\n- R-AP-12 and R-AP-14 wording, Q4 2026 and 'Owner: PM' (org.roadmap).\n- The capability and strategy quotes (org.strategy_capability).\n- The T2 tier quote, CR-1 to CR-7, OQ-1 to OQ-5, Q-1 to Q-5, the PROV-ACME-2026-11 dates and models, and the ZD-48510 not-grouped decision (feat.classification).\n- The ticket quotes: 'more than 30 days past due', 'sorted by days descending then id', the thresholds > 30 and > 10, delay_days = (paid_date - due_date), the 'paid_date' reject reason, and 'unknown' risk (ZD-48600).\n- The REG-LPR-2026-4.2 'more than 60 days' Late rule.\n- D-2026-031, D-2026-044, D-2026-050 and L-007 (MEMORY.md).\n- The api:github GET-only limitation (record:brief).\n\nThe agent's own inventions are disclosed as such: the reason code FIT-Y-ROADMAP (FQ-5), the 'Yes' recommendation, and the fit judgements are all labelled agent judgement.\n\nAgainst the workbook action and outcome: the output checks the entry against capability, roadmap and strategy, gives a Yes verdict with evidence and a reason code, and drafts the notification to PM and Leadership. It truthfully says no message was sent because no channel is set and the connector is GET-only. Only small overreaches remain: the 'described only in the override' claim and the plural 'reject reasons'."
   },
   "turns": 3,
-  "seconds": 101.8,
+  "seconds": 97.4,
   "denied_by_hooks": [],
   "capability_requests": []
 }

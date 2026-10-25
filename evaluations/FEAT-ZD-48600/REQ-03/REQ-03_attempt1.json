@@ -3,45 +3,30 @@
   "step": "REQ-03",
   "agent": "Requirement",
   "attempt": 1,
-  "resumed_session": false,
-  "approach": "I followed the REQ-03 procedure in the requirement-steps skill and checked the entry against the roadmap, the capability and the strategy. I read the three contracted inputs: feat.classification, org.strategy_capability and org.roadmap. For background I also read the approved REQ-01 outputs feat.intake and feat.prebacklog through context_get, with receipts, and the source file requirements/ZD-48600.md. I searched shared memory for related decisions and found none beyond the three already logged. The output is a recommended Yes verdict with reason code FIT-YES-ROADMAP. It shows the evidence for each check (roadmap, capability, strategy), checks the decision log and declares its assumptions. The final Yes or No is left to the PM and Leadership gate. I did not use a verifier subagent: the output makes few factual statements, and I checked each one against the quoted input text. No connector was needed.",
+  "resumed_session": true,
+  "approach": "This attempt fixes the single G1 refusal in feat.fitment. The sentence 'REQ-02 linked the entry to R-AP-12' wrongly said REQ-02 made the link. It now reads: 'feat.classification records R-AP-12 as the entry's linked roadmap item, citing feat.prebacklog as the source of the link.' I searched the file for other statements that credit an action to a step and reworded one more: the ZD-48510 row now says feat.classification marks it 'Not grouped', not 'REQ-02 did not group it'. Nothing else changed: the verdict, reason code, evidence, notification and open questions are the same as in the previous attempt. Inputs used: feat.classification, org.strategy_capability and org.roadmap, plus requirements/ZD-48600.md and REG-LPR-2026-4.2.md for exact wording, and shared memory for decisions.",
   "tools_used": [
-    "Skill:requirement-steps",
     "Read",
-    "Glob",
-    "mcp__hobasa-context__context_list",
-    "mcp__hobasa-context__context_get",
-    "mcp__hobasa-context__memory_search",
-    "Write"
+    "Write",
+    "Edit",
+    "Grep"
   ],
   "connector_calls": [],
   "subagents_used": [],
-  "claims": 10,
-  "automated_failures": [
-    "G1 judge found an unsupported statement: \"Showing overdue invoices, ordered by days overdue and labelled with vendor risk, helps AP managers decide which overdue invoices to act on first. This supports \" (No source says this supports 'help finance teams pay on time and avoid late-payment penalties'. That is the agent's own reasoning. The ticket's wording ('vendor)",
-    "G1 judge found an unsupported statement: \"Risk to the existing capability | The source file records no finance posting, authentication, tenancy or payment execution, tier T2, and an advisory-only risk l\" (The quoted content is supported (ZD-48600.md org.risk_map; feat.classification). Labelling it as 'risk to the existing capability' is the agent's framing: the s)"
-  ],
+  "claims": 15,
+  "automated_failures": [],
   "judge": {
-    "unsupported": [
-      {
-        "text": "Showing overdue invoices, ordered by days overdue and labelled with vendor risk, helps AP managers decide which overdue invoices to act on first. This supports the goal under assumption F-1.",
-        "why": "No source says this supports 'help finance teams pay on time and avoid late-payment penalties'. That is the agent's own reasoning. The ticket's wording ('vendors that usually pay late', 'chase them first') reads more like collecting receivables than paying payables on time. The output does state the dependency on F-1/OQ-F1, so this is a weak inference rather than an invented fact, but the 'Strategy fit: Yes' heading states it more firmly than the evidence allows."
-      },
-      {
-        "text": "Risk to the existing capability | The source file records no finance posting, authentication, tenancy or payment execution, tier T2, and an advisory-only risk label.",
-        "why": "The quoted content is supported (ZD-48600.md org.risk_map; feat.classification). Labelling it as 'risk to the existing capability' is the agent's framing: the source risk note describes the change's risk tier, not its effect on ap_aging's current bucket capability. This is minor."
-      }
-    ],
+    "unsupported": [],
     "scores": {
       "correct": 5,
-      "complete": 4,
+      "complete": 5,
       "grounded": 5,
       "useful": 4
     },
-    "notes": "I read the output feat.fitment.md, the three REQ-03 inputs (feat.classification, org.strategy_capability, org.roadmap) and requirements/ZD-48600.md. I also read the journey-cited approved outputs feat.intake.md and feat.prebacklog.md and the JOURNEY.md board, which records journey:<item> as a valid citation form and shows that sim.pm approved REQ-01 and REQ-02.\n\nSupported claims:\n- Every quotation matches its source verbatim:\n  - R-AP-12 \"give AP managers earlier visibility of overdue payables\"\n  - R-AP-14 \"aging export for finance close\"\n  - \"Q4 2026\", \"Owner: PM\"\n  - the capability sentence with buckets current, 1-30, 31-60, 61-90, 90+\n  - both strategy statements\n- The CR-1 to CR-7 descriptions and their repositories match feat.intake and feat.classification.\n- \"More than 30 days past due\", \"tier T2\" and \"advisory only\" all appear in the sources.\n- The decision-log section matches feat.prebacklog section 4 and MEMORY.md (D-2026-031/044/050).\n- The carried-forward items match feat.classification OQ-A to OQ-D and OQ-F, including the related IDs ZD-48211, ZD-48501, ZD-48470, PROV-ACME-2026-11 and ZD-48377.\n- \"Rests on one roadmap line and one strategy paragraph\" accurately describes the inputs.\n- \"org.strategy_capability describes only ap_aging\" is true.\n\nDesign choices, acceptable:\n- The reason code FIT-YES-ROADMAP is invented, but the output says so openly (F-2/OQ-F4) and no list of reason codes exists in the inputs.\n- The output explains that no notification was sent and that the file is the notification content.\n- F-1 sensibly flags the payables-versus-receivables ambiguity in \"vendors that usually pay late / chase them first\", and OQ-F1 routes it to the PM.\n\nAgainst the workbook:\n- The action asks for capability, roadmap and strategy checks with a Yes/No verdict and evidence; all three are present with a recommended Yes.\n- The outcome asks for a verdict with evidence plus notification content for PM and Leadership; it is present.\n\nGaps:\n- The strategy fit is the weakest leg and is labelled a plain \"Yes\" when it is really conditional on F-1.\n- The output does not say what verdict follows if OQ-F1 resolves to the receivables reading. It only says the verdict \"would need to be reviewed\" and gives no explicit No path or reason code.\n- No numbers, dates, test counts or CI results are invented."
+    "notes": "I checked the whole output against feat.classification, org.strategy_capability, org.roadmap, record:brief, record:memory and the cited files ZD-48600.md, REG-LPR-2026-4.2.md and ZD-48510.md. No statement is unsupported.\n\n**The refusal point is fixed.** Line 27 now says that feat.classification records R-AP-12 as the linked roadmap item and cites feat.prebacklog as the source of that link. This matches feat.classification lines 16 and 70. The output no longer says that REQ-02 made the link.\n\n**Roadmap evidence matches the source.** R-AP-12 and R-AP-14, \"Q4 2026\", \"AP module\" and \"Owner: PM\" all match org.roadmap line 4.\n\n**Capability and strategy evidence matches the source.** The capability quote and both strategy quotes are verbatim from org.strategy_capability line 4.\n\n**Ticket details match ZD-48600.md.** These all appear in the ticket text or its overrides:\n- the ticket quote\n- \"more than 30 days past due\"\n- \"sorted by days descending then id\"\n- the thresholds > 30 and > 10\n- the rule delay_days = paid_date - due_date\n- the 'paid_date' reject reason\n- the 'unknown' risk value\n- \"Keep every existing signature; add new functions\"\n- \"uses no LLM\"\n- the T2 risk-map quote\n- amounts as strings with two decimals\n\n**Related items are cited correctly.** These details come from feat.classification:\n- PROV-ACME-2026-11, the move from acme-text-2 to acme-text-3, and the 2026-12-01 deprecation date\n- feed v2 and v3\n- ZD-48501 and ZD-48211\n- ZD-48510 marked \"Not grouped\"\n- OQ-1 to OQ-5 and Q-1 to Q-5\n\nThe REG-LPR \"more than 60 days\" Late definition matches REG-LPR-2026-4.2.md.\n\n**Decision and lesson references are correct.** D-2026-031, D-2026-044, D-2026-050 and L-007 match memory/MEMORY.md.\n\n**Gate owners and connector limits match the brief.** The brief names PM and Leadership as gate owners. It also limits api:github to GET requests, so no message could be sent.\n\n**Design choices are labelled and invent no facts:**\n- The reason code FIT-Y-ROADMAP is the agent's own invention. It is marked as such, and FQ-5 asks whether an approved list of reason codes exists.\n- Each \"agent judgement\" statement is labelled.\n- The notification is kept as a record instead of being sent, and the output says why.\n\n**Minor imprecision, not counted as unsupported.** Line 45 says \"the table\" is sorted by days descending then id. In the ticket, that order belongs to the list that overdue_with_risk returns, and the portal renders one row per list entry. So the table order follows by implication only.\n\n**Workbook action and outcome are met.** The output gives a Yes/No verdict with evidence for roadmap, capability and strategy fit, a reason code, a decision-log check, and a notification addressed to PM and Leadership.\n\n**Why useful is 4, not 5:**\n- The reason code is invented, not taken from an approved list.\n- No notification was actually sent; this file serves as the record.\n- The verdict depends on how FQ-1 is answered. The ticket's \"vendors that usually pay late\" / \"chase them first\" wording is ambiguous for AP. The output flags this and says strategy fit should be rechecked if the meaning differs."
   },
-  "turns": 15,
-  "seconds": 120.3,
+  "turns": 5,
+  "seconds": 72.7,
   "denied_by_hooks": [],
   "capability_requests": []
 }

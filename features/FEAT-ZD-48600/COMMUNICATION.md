@@ -35,3 +35,25 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 11:30:03**
 
 ✅ **REQ-02 Grouping** (Requirement agent): done. Outputs: [feat.classification](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.classification.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-02/README.md). Decisions: PM: approve by sim.pm.
+
+---
+**2026-10-25 11:35:00**
+
+⚠️ **REQ-03 blocked** after its bounded attempts. *SIMULATED exception resolution by PM: one more bounded round in the same session with every refusal reason.*
+
+- G1 judge found an unsupported statement: "REQ-02 linked the entry to R-AP-12." (feat.classification (the REQ-02 output) cites feat.prebacklog as the source of the Linked roadmap item R-AP-12 (lines 16 and 70). The link was made earlier, in )
+
+---
+**2026-10-25 11:36:14**
+
+⏸ **Gate REQ-03 Product Fitment Validation** needs **PM**. Review [feat.fitment](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.fitment.md) and the [step record](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-03/README.md) (checks and independent judge passed). Reply `/approve REQ-03 PM scores=c,c,g,u <comment>` or `/reject REQ-03 PM: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 11:36:16**
+
+⏸ **Gate REQ-03 Product Fitment Validation** needs **Leadership**. Review [feat.fitment](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.fitment.md) and the [step record](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-03/README.md) (checks and independent judge passed). Reply `/approve REQ-03 Leadership scores=c,c,g,u <comment>` or `/reject REQ-03 Leadership: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 11:36:17**
+
+✅ **REQ-03 Product Fitment Validation** (Requirement agent): done. Outputs: [feat.fitment](https://github.com/arghya05/hobasa-requirement-agent/blob/main/outputs/FEAT-ZD-48600/feat.fitment.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-requirement-agent/blob/main/steps/FEAT-ZD-48600/REQ-03/README.md). Decisions: PM: approve by sim.pm; Leadership: approve by sim.leadership.
