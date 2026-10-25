@@ -2,7 +2,7 @@
 
 **Requirement:** AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it   
 **Source:** Zendesk ticket ZD-48600 (sample, synthetic) (Customer Feedback) · **classified:** New Feature · **fitment:** Yes · **route:** full · **repositories:** ap_aging, ap_forecast, ap_pipeline, ap_portal  
-**Gates:** SIMULATED (automated test) · updated 2026-10-25 13:39
+**Gates:** SIMULATED (automated test) · updated 2026-10-25 13:40
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -12,8 +12,8 @@ Every agent reads this board at session start. Approved outputs below are readab
 2. **In parallel**, one lane per coding agent (each lane in sequence):
    - Backend: ✓ BE-01 → ▶ BE-02 → · BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
    - Data Science: ✓ DS-01 → ▶ DS-02 → · DS-03 → · DS-04 → · DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
-   - Data Engineering: ▶ DE-01 → · DE-02 → · DE-03 → · DE-04 → · DE-05 → · DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
-   - Frontend: ✓ FE-01 → · FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
+   - Data Engineering: ✓ DE-01 → · DE-02 → · DE-03 → · DE-04 → · DE-05 → · DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
+   - Frontend: ✓ FE-01 → ▶ FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
 ## Done so far (newest last)
@@ -35,9 +35,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 13 | BE-01 Checking the coding prerequisites ⁶ | Backend | [task.repo_access](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-01/README.md) | Attempt 3. In attempt 2 I read the ap_aging repository files directly with Read in that session, but the G2 check still did not count those reads. So this attempt cites none of them. I read both contracted inputs, feat.tasks (revision b0fd4d2) and org.engineering_stack (revision a6b3e2a), through context_get to get receipts. Availability, write access and the branch come from the step's repo-acces | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 3 |
 | 14 | DS-01 Checking the coding prerequisites ⁶ | Data Science | [task.repo_access](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-01/README.md) | Attempt 3. Both earlier refusals were G2: the cited ap_forecast files counted as unread, even though attempt 2 re-read every one of them with Read. context_list and context_get showed that only the two contract items (feat.tasks, org.engineering_stack) can be fetched with a receipt; repository files can't. So instead of re-reading the files a third time, I re-fetched both inputs through context_ge | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 3 |
 | 15 | FE-01 Checking the coding prerequisites ⁶ | Frontend | [task.repo_access](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-01/README.md) | Attempt 4 fixes the G1 refusal. Section 3 said 'The spine created the branch, and FE-01 allows no shell commands', and no source supports that. I removed the sentence. Section 3 now says only that this step did not create a branch, make a commit, push, or create a repository. The RAQ-1 interim answer made the same unsupported claim ('as the spine created it'); it now reads 'the branch the tool vie | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 4 |
+| 16 | DE-01 Checking the coding prerequisites ⁹ | Data Engineering | [task.repo_access](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-01/README.md) | Attempt 4 fixes the two G1 findings. (1) I removed "The spine runs push and merge." No source says the spine merges, and section 2 now states only commit facts cited to org.engineering_stack and feat.tasks. (2) I rewrote RA-2 so it says only what tool:repo-access supports: write access is as the tool view reports, and this output claims no push or CI run of its own. I also removed other statements | Data engineer: approve by sim.data_engineer | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 4 |
 
 ## Running now
 
 - BE-02 Access to secrets (Backend)
-- DE-01 Checking the coding prerequisites ⁹ (Data Engineering)
 - DS-02 Access to secrets (Data Science)
+- FE-02 Access to secrets (Frontend)
