@@ -256,3 +256,8 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 13:59:16**
 
 ✅ **DE-06 Data Mapping** (Data Engineering agent): done. Outputs: [feat.mappings](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.mappings.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-06/README.md). Decisions: Data engineer: approve by sim.data_engineer.
+
+---
+**2026-10-25 14:02:27**
+
+✅ **BE-06 Unit Test Cases** (Backend agent): done. Outputs: [task.unit_tests](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.unit_tests.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-06/README.md).
