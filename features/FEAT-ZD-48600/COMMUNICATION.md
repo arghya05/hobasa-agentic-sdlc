@@ -124,3 +124,13 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 14:28:34**
 
 ✅ **BE-04 Identify the components/layers to be changed** (Backend agent): done. Outputs: [task.components](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.components.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-04/README.md).
+
+---
+**2026-10-25 14:28:41**
+
+⏸ **Gate DE-05 Data Model Changes** needs **Data engineer**. Review [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md) and the [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md) (checks and independent judge passed). Reply `/approve DE-05 Data engineer scores=c,c,g,u <comment>` or `/reject DE-05 Data engineer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 14:28:42**
+
+✅ **DE-05 Data Model Changes** (Data Engineering agent): done. Outputs: [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md). Decisions: Data engineer: approve by sim.data_engineer.
