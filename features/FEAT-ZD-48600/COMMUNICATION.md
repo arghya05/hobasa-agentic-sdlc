@@ -47,3 +47,13 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 13:20:54**
 
 ✅ **DES-02 Design Document** (Design agent): done. Outputs: [feat.design](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.design.md), [feat.screens](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.screens.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-02/README.md). Decisions: Architect: approve by sim.architect; UX lead: approve by sim.ux_lead.
+
+---
+**2026-10-25 13:29:35**
+
+⏸ **Gate DES-03 Understand HLD or LLD+ Doubts Clarifications** needs **Architect**. Review [feat.clarifications](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.clarifications.md) and the [step record](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-03/README.md) (checks and independent judge passed). Reply `/approve DES-03 Architect scores=c,c,g,u <comment>` or `/reject DES-03 Architect: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 13:29:37**
+
+✅ **DES-03 Understand HLD or LLD+ Doubts Clarifications** (Design agent): done. Outputs: [feat.clarifications](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.clarifications.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-03/README.md). Decisions: Architect: approve by sim.architect.
