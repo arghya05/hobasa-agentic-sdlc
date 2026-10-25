@@ -175,3 +175,13 @@ Reply `/answer FE-04: <text>`.
 **2026-10-25 21:23:48**
 
 ✅ **FE-04 Coding** (Frontend agent): done. Outputs: [task.code](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.code.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-04/README.md).
+
+---
+**2026-10-25 21:27:37**
+
+⏸ **Gate DE-06 Data Mapping** needs **Data engineer**. Review [feat.mappings](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.mappings.md) and the [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-06/README.md) (checks and independent judge passed). Reply `/approve DE-06 Data engineer scores=c,c,g,u <comment>` or `/reject DE-06 Data engineer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 21:27:39**
+
+✅ **DE-06 Data Mapping** (Data Engineering agent): done. Outputs: [feat.mappings](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.mappings.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-06/README.md). Decisions: Data engineer: approve by sim.data_engineer.
