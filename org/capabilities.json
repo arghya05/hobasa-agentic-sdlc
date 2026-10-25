@@ -1,0 +1,21 @@
+{
+  "_about": "Connectors approved per agent. Agents list them with capabilities_list and decide whether a step needs one. APIs are called only through api_call (allowlisted base URL and methods; credentials added by the server, never shown to the agent; every response saved and citable). MCP servers load into the agent's session when enabled. A person approves changes here; agents ask through capability_request.",
+  "apis": {
+    "osv": {"purpose": "Known vulnerabilities for a dependency version (POST /v1/query with {\"package\":{\"name\":...,\"ecosystem\":\"PyPI|npm\"},\"version\":...})",
+            "base_url": "https://api.osv.dev", "methods": ["POST"], "docs": "https://google.github.io/osv.dev/post-v1-query/",
+            "agents": ["Backend", "Frontend", "Data Science", "Data Engineering", "Release", "Deployment", "Testing"]},
+    "pypi": {"purpose": "Python package metadata: latest version, licence, release dates (GET /pypi/<package>/json)",
+             "base_url": "https://pypi.org", "methods": ["GET"], "agents": ["Backend", "Data Science", "Data Engineering", "Release", "Design"]},
+    "npm": {"purpose": "npm package metadata: versions, licence (GET /<package>)", "base_url": "https://registry.npmjs.org", "methods": ["GET"],
+            "agents": ["Frontend", "Release", "Design"]},
+    "github": {"purpose": "GitHub REST API for the Hobasa repositories: issues, pull requests, checks (GET /repos/<owner>/<repo>/...)",
+               "base_url": "https://api.github.com", "methods": ["GET"], "auth_env": "GITHUB_TOKEN", "auth_prefix": "Bearer ",
+               "agents": "*"}
+  },
+  "mcp_servers": {
+    "playwright": {"purpose": "Drive a browser for UI acceptance tests and screenshots", "command": "npx", "args": ["-y", "@playwright/mcp"],
+                   "agents": ["Frontend", "Testing"], "enabled": false, "note": "pin an exact package version before enabling"},
+    "sonarqube": {"purpose": "Static analysis results for a pull request", "agents": ["Backend", "Frontend", "Data Science", "Data Engineering", "Release"],
+                  "enabled": false, "note": "connect when SonarQube is licensed (C-items in the plan)"}
+  }
+}

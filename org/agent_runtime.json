@@ -1,0 +1,10 @@
+{
+  "_about": "Claude Code model and effort per agent (--model, --effort, --fallback-model). Edit in GitHub (org/agent_runtime.json); the next step picks it up.",
+  "default": {"model": "opus", "effort": "high", "fallback_model": "sonnet"},
+  "agents": {
+    "Operational": {"model": "sonnet", "effort": "medium"},
+    "Scheduler": {"model": "sonnet", "effort": "medium"},
+    "Shared services": {"model": "sonnet", "effort": "medium"},
+    "evaluator": {"model": "opus", "effort": "high"}
+  }
+}
