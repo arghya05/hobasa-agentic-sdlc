@@ -134,3 +134,29 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 14:28:42**
 
 ✅ **DE-05 Data Model Changes** (Data Engineering agent): done. Outputs: [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md). Decisions: Data engineer: approve by sim.data_engineer.
+
+---
+**2026-10-25 14:30:20**
+
+⚠️ **FE-04 blocked** after its bounded attempts. *SIMULATED exception resolution by Developer: one more bounded round in the same session with every refusal reason.*
+
+- G3 numbers ['61.67', '25', '27', '32', '36', '41', '47', '58'] in "node ci.mjs reports compile true, 2 tests run, 0 failures, no static issues, line coverage 61.67 and" do not appear in tool:node ci.mjs; file:ap_portal/src/ap_portal/index.js
+
+---
+**2026-10-25 14:31:00**
+
+⚠️ **DS-05 blocked** after its bounded attempts. *SIMULATED exception resolution by Developer: one more bounded round in the same session with every refusal reason.*
+
+- G1 judge found an unsupported statement: "Coverage gate (`COVERAGE_MIN = 90.0`) | **FAIL.** The CI run measured 83.3% total. (section 3 table, cited "CI run; file:ap_forecast/ci.py")" (83.3 does not appear in any source the agent can cite. file:ap_forecast/ci.py defines only COVERAGE_MIN = 90.0. too
+- G1 judge found an unsupported statement: "`__init__.py` and `predict.py` are fully covered. (section 3, Coverage row)" (This is a per-file coverage result attributed to "CI run". No tool view or cited file contains a coverage report, so the per-file figures have no supporting sou)
+- G1 judge found an unsupported statement: "Overall `passed` | `false` (coverage only) | CI run" (This is a CI result cited only to "CI run". No tool view records the CI JSON output (passed, failures, errors, coverage), so it differs from what the tool views)
+
+---
+**2026-10-25 14:32:06**
+
+⏸ **Gate DE-06 Data Mapping** needs **Data engineer**. Review [feat.mappings](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.mappings.md) and the [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-06/README.md) (checks and independent judge passed). Reply `/approve DE-06 Data engineer scores=c,c,g,u <comment>` or `/reject DE-06 Data engineer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 14:32:08**
+
+✅ **DE-06 Data Mapping** (Data Engineering agent): done. Outputs: [feat.mappings](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.mappings.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-06/README.md). Decisions: Data engineer: approve by sim.data_engineer.
