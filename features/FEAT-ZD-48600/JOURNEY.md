@@ -10,10 +10,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
-   - Backend: ✓ BE-01 → ▶ BE-02 → · BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
+   - Backend: ✓ BE-01 → ✓ BE-02 → · BE-03 → · BE-04 → · BE-05 → · BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
    - Data Science: ▶ DS-01 → · DS-02 → · DS-03 → · DS-04 → · DS-05 → · DS-06 → · DS-07 → · DS-08 → · DS-09 → · DS-10
    - Data Engineering: ▶ DE-01 → · DE-02 → · DE-03 → · DE-04 → · DE-05 → · DE-06 → · DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
-   - Frontend: ✓ FE-01 → · FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
+   - Frontend: ✓ FE-01 → ▶ FE-02 → · FE-03 → · FE-04 → · FE-05 → · FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
 
 ## Done so far (newest last)
@@ -34,9 +34,10 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 12 | DES-01 Platform Architecture Update ¹ | Design | [feat.platform_update](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/checks/DES-01_feat.platform_update.md) · [step record](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-01/README.md) | I ran the step as a check, because the brief says its condition is not met. I loaded the design-steps skill for the DES-01 procedure and read both contracted inputs: the approved TRD and the feature override of org.architecture. I also read three registered files as background: the platform baseline org/org.architecture.md, the feature's org.data_model override and the decision log. I then tested  | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 1 |
 | 13 | BE-01 Checking the coding prerequisites ⁶ | Backend | [task.repo_access](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-01/README.md) | I read the two contracted inputs: feat.tasks, to find which Backend tasks and repository are in scope, and org.engineering_stack, for the stack, CI command, branches and Databricks use. I then checked the ap_aging checkout against the step's tool view. This step allows no shell commands (the G9 hook blocked them), so availability, the branch and write access come from tool:repo-access. I confirmed | — | scores {'correct': 5, 'complete': 4, 'grounded': 4, 'useful': 5} | 1 |
 | 14 | FE-01 Checking the coding prerequisites ⁶ | Frontend | [task.repo_access](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.repo_access.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-01/README.md) | FE-01 checks only whether the repository is available and writable, so I did the checks directly instead of using a helper. I read feat.tasks and org.engineering_stack to find the Frontend lane's task and repository: TSK-07 in ap_portal. FE-01 does not allow shell commands, so availability, branch, clean tree and write access come from the step's tool view. I backed those up by reading these repos | — | scores {'correct': 5, 'complete': 5, 'grounded': 5, 'useful': 5} | 2 |
+| 15 | BE-02 Access to secrets | Backend | [task.secrets_scope](https://github.com/arghya05/hobasa-backend-agent/blob/main/outputs/FEAT-ZD-48600/task.secrets_scope.md) · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-02/README.md) | I read feat.tasks to find the Backend tasks for ap_aging: TSK-05 (overdue_with_risk) and TSK-06 (overdue_rows_to_json). Both are pure functions in src/ap_aging/aging.py, use only the standard library and add no transport layer. I compared that with the tool view for the restricted org.permission_table, which says no secrets are required or granted for ap_aging. To confirm the code needs none, I re | — | scores {'correct': 5, 'complete': 4, 'grounded': 5, 'useful': 4} | 1 |
 
 ## Running now
 
-- BE-02 Access to secrets (Backend)
 - DE-01 Checking the coding prerequisites ⁹ (Data Engineering)
 - DS-01 Checking the coding prerequisites ⁶ (Data Science)
+- FE-02 Access to secrets (Frontend)
