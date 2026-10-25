@@ -32,3 +32,18 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 13:10:43**
 
 🔎 **DES-01 Platform Architecture Update ¹** (Design agent): checked. Outputs: [feat.platform_update](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/checks/DES-01_feat.platform_update.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-01/README.md).
+
+---
+**2026-10-25 13:20:51**
+
+⏸ **Gate DES-02 Design Document** needs **Architect**. Review [feat.design](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.design.md), [feat.screens](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.screens.md) and the [step record](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-02/README.md) (checks and independent judge passed). Reply `/approve DES-02 Architect scores=c,c,g,u <comment>` or `/reject DES-02 Architect: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 13:20:53**
+
+⏸ **Gate DES-02 Design Document** needs **UX lead**. Review [feat.design](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.design.md), [feat.screens](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.screens.md) and the [step record](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-02/README.md) (checks and independent judge passed). Reply `/approve DES-02 UX lead scores=c,c,g,u <comment>` or `/reject DES-02 UX lead: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 13:20:54**
+
+✅ **DES-02 Design Document** (Design agent): done. Outputs: [feat.design](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.design.md), [feat.screens](https://github.com/arghya05/hobasa-design-agent/blob/main/outputs/FEAT-ZD-48600/feat.screens.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-design-agent/blob/main/steps/FEAT-ZD-48600/DES-02/README.md). Decisions: Architect: approve by sim.architect; UX lead: approve by sim.ux_lead.

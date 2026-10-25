@@ -1,3 +1,4 @@
 # Connector requests from agents (a person approves in capabilities.json)
 
 - REQUESTED by Requirement at REQ-01: api notification channel (e.g. Teams/Slack/email) to notify the PM when a Pre Backlog entry is created because REQ-01 workbook outcome is 'Entry created in the Pre Backlog requirement sheet, linked to the roadmap item and Notification sent'; the only approved connector (api:github) is GET-only, so the Requirement agent cannot send the notification for FEAT-ZD-48600.
+- REQUESTED by Design at DES-02: mcp figma because DES-02 output feat.screens is "Approved final Figma screens". org.design_library says Figma is not connected in this run, so the screens are delivered in text form (exact HTML spec and annotated frames). A Figma MCP connection would let the Design agent publish the overdue risk table frames (SC-1, populated and empty states) as real Figma screens for the UX lead gate. Same request as prototype question PQ-P6.
