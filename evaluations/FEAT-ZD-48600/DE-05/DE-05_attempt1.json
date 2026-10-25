@@ -4,7 +4,7 @@
   "agent": "Data Engineering",
   "attempt": 1,
   "resumed_session": false,
-  "approach": "I followed the DE-05 procedure in the data-engineering-steps skill, which reads task.components and org.data_model and writes feat.data_model_change. I read both contracted inputs, the ap_pipeline tool view and the shared memory and journey board. Through context_list and context_get I read the approved feat.design (DES-02) as background, with a receipt, to ground the DC-1/DC-2 contracts and the B1.2 to B1.5 rules. I ran the allowed CI command and git status on the unchanged checkout to confirm the baseline. Both passed, and the working tree was clean. A stale draft from another run was already at the output path: it said attempt 2, used other input revisions and old item IDs (TC-1/TC-2). I replaced it in full with an attempt-1 document built on the current inputs (IN-1 to IN-9). The step changes the data model only. Code changes (IN-3, IN-7) belong to DE-08, so I left src/ap_pipeline/ untouched. No connector was needed.",
+  "approach": "I followed DE-05 in the data-engineering-steps skill. First I read both contracted inputs: task.components from DE-04 and the feature override of org.data_model. I also read the organisation's baseline org/org.data_model.md so I could compare the model before and after the feature. Next, I used context_get to read the approved feat.design as background, which gives a receipt for its record contracts (DC-1, DC-2, B1.2 to B1.4, DD-6, DD-7, NF-4). I read the current ingestion and transformation code through CodeGraph. I ran the CI once (`/usr/bin/python3 ci.py`) to get a baseline, and it passed. I wrote feat.data_model_change with these parts: the change to the source system, the Invoice entity before and after, the paid_date attribute specification, the new reject reason, the derived delay-history view, a knowledge-graph diagram, compatibility, and a column-to-attribute handover for DE-06. I changed no code. The model change is implemented by TSK-01 and TSK-02 in DE-08, as task.components plans, so editing transform.py now would get ahead of that step's budget and tests. Comparing the baseline model with the feature override showed one difference, the \"vendor (str, optional)\" wording. I raised it as an open question rather than resolving it myself.",
   "tools_used": [
     "Skill (data-engineering-steps)",
     "Read",
@@ -12,32 +12,21 @@
     "Grep",
     "mcp__hobasa-context__context_list",
     "mcp__hobasa-context__context_get (feat.design)",
-    "Bash (/usr/bin/python3 ci.py; git status)",
+    "mcp__hobasa-context__memory_search",
+    "codegraph explore (Bash)",
+    "Bash: git status, git log, /usr/bin/python3 ci.py",
     "Write",
     "Edit"
   ],
   "connector_calls": [],
   "subagents_used": [],
-  "claims": 10,
-  "automated_failures": [],
-  "judge": {
-    "unsupported": [],
-    "improvements": [
-      "Section 5 says CI passed and `git status` showed a clean working tree, but cites only \"result from this step's CI run\". The agent's session transcript backs this: 'Ran 3 tests ... OK', 'passed': true, 'On branch feature/story', 'nothing to commit, working tree clean'. Neither the brief nor the tool view contains that result, though, so the gate cannot check it from the cited sources. Quote the CI summary (3 tests, passed, no static issues) or cite the CI tool result directly.",
-      "Section 1 (Delay history row) and 2.4 add the Delay history as part of the DE-05 model change. The DE-04 hand-off (task.components section 7) said the new `paid_date` reject reason is 'the only addition to record', and that DE-07 owns IN-7's transformation detail. Add a sentence that the Delay history is recorded here as a model element only, with its implementation detail left to DE-07, so the two outputs don't seem to overlap.",
-      "R-I3 (a v3 header spelled differently loads silently as `paid_date = None`) is carried only indirectly through DMQ-2. The data model's compatibility table (section 3) or the schema validation rules (section 4) could name this silent-null risk explicitly.",
-      "Section 4 states the boundary rule for Delay history values but gives no explicit boundary example. Under L-007 you could add a case such as `paid_date == due_date` giving delay 0, and the negative-delay case, as named validation rows for DE-09."
-    ],
-    "scores": {
-      "correct": 5,
-      "complete": 5,
-      "grounded": 5,
-      "useful": 5
-    },
-    "notes": "I checked every statement against org.data_model, task.components (DE-04), journey:feat.design, record:memory, the brief and the ap_pipeline tool view, and found no hallucinations.\n\n**Baseline (section 1)**\n- The baseline table matches the tool view exactly: field expressions, the reject tuple (KeyError, ValueError, InvalidOperation, AttributeError), the docstring field list and version 0.4.0.\n- org.data_model already registers `paid_date` (date or None, feed v3), so the central conclusion holds: no Invoice field is added, removed or retyped.\n\n**Model changes and rules (sections 2.1 to 2.5 and 4)**\n- The feed v2/v3 contract, the `paid_date` parsing rules (missing, None, blank or whitespace gives None; otherwise fromisoformat of the stripped value) and DD-6/DD-7 trace correctly to task.components IN-3 and feat.design B1.2, B1.4 and A7.\n- The PAID_DATE_REASON constant, the Delay history shape and membership (DC-2, B1.2), the consumers (DC-1, DC-2, B3.3) and the DE-09 test expectations all trace to their cited sources, including ValueError winning when both fields are bad (B1.5 test_existing_reason_wins).\n- DE-08 Coding and DE-09 Unit Test Cases are named correctly in the data-engineering-steps skill.\n- Revision 722a98f for feat.design appears in task.components.\n\n**Open questions (section 6)**\n- The carried items (CQ-I1, CQ-I3/OQ-B6, DQ-4, TQ-10) match their sources.\n\n**CI claim (section 5)**\n- The only claim no cited source holds is the CI pass and clean working tree. The agent's own transcript confirms it (3 tests OK, passed: true, branch feature/story, clean tree), so it is not invented. It is listed under improvements as a citation gap.\n\n**Workbook fit**\n- The output meets the workbook action and outcome: an updated data model drawn from the source feed and ingested data, with compatibility, validation rules and non-blocking open questions."
-  },
-  "turns": 16,
-  "seconds": 150.4,
+  "claims": 12,
+  "automated_failures": [
+    "G2 claim cites mcp:codegraph but that connector was not used in this session"
+  ],
+  "judge": null,
+  "turns": 19,
+  "seconds": 115.3,
   "denied_by_hooks": [],
   "capability_requests": []
 }

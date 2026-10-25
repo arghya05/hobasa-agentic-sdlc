@@ -117,3 +117,22 @@ Decide in this issue: `/approve <STEP> <role> scores=c,c,g,u <comment>`, `/rejec
 **2026-10-25 21:12:47**
 
 ✅ **DS-04 Identify the components/layers to be changed** (Data Science agent): done. Outputs: [task.components](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.components.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-04/README.md).
+
+---
+**2026-10-25 21:15:14**
+
+❓ **FE-04 Coding** (Frontend agent) needs an answer from **Developer**:
+
+- BLOCKING: The CI coverage gate (line coverage of at least 90) cannot be met within this step's write scope. The new code's tests (FC-10) belong in tests/portal.test.js, which this step may not change. Should this step be accepted with the coverage gate moved to the unit-test step, or should tests/portal.test.js be added to this step's scope? Owner: Developer (step owner).
+
+Reply `/answer FE-04: <text>`.
+
+---
+**2026-10-25 21:16:00**
+
+⏸ **Gate DE-05 Data Model Changes** needs **Data engineer**. Review [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md) and the [step record](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md) (checks and independent judge passed). Reply `/approve DE-05 Data engineer scores=c,c,g,u <comment>` or `/reject DE-05 Data engineer: <reason>`. *(SIMULATED gate: an automated approver decides on measurable criteria.)*
+
+---
+**2026-10-25 21:16:01**
+
+✅ **DE-05 Data Model Changes** (Data Engineering agent): done. Outputs: [feat.data_model_change](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/outputs/FEAT-ZD-48600/feat.data_model_change.md). [Inputs, attempts, checks and judge](https://github.com/arghya05/hobasa-data-engineering-agent/blob/main/steps/FEAT-ZD-48600/DE-05/README.md). Decisions: Data engineer: approve by sim.data_engineer.
