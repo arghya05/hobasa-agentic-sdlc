@@ -1,0 +1,44 @@
+{
+  "item": "FEAT-ZD-48600",
+  "requirement": "AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it is > 10, otherwise 'low'; build_explanation_request gains an optional risk argument and, when given, the prompt ends with ' Risk level: <risk>.'. (3) Backend, ap_aging: add overdue_with_risk(invoices, as_of, risk_by_vendor) returning, for unpaid invoices more than 30 days past due, a list of {'id', 'vendor', 'days', 'amount', 'risk'} sorted by days descending then id, with risk 'unknown' for vendors not in risk_by_vendor. (4) Frontend, ap_portal: add renderOverdueRisk(rows) rendering '<table class=\"overdue-risk\">' with one '<tr class=\"risk-RISK\">' per row showing id, vendor, days and amount to two decimals, and an empty string when there are no rows. The whole flow must be proven end to end: feed -> delays -> risk -> overdue list -> portal table.",
+  "source": "Zendesk ticket ZD-48600 (sample, synthetic)",
+  "channel": "Customer Feedback",
+  "type": "New Feature",
+  "fitment": "Yes",
+  "route": "full",
+  "repositories": [
+    "ap_aging",
+    "ap_forecast",
+    "ap_pipeline",
+    "ap_portal"
+  ],
+  "coding_plan": null,
+  "status": "in_progress",
+  "running_now": [],
+  "last_step": "DES-01",
+  "steps_done": 11,
+  "steps_checked": 1,
+  "steps_skipped": 0,
+  "steps_blocked": [],
+  "steps_planned": 90,
+  "agents": {
+    "Requirement": {
+      "done": 8,
+      "checked": 0,
+      "skipped": 0,
+      "blocked": 0
+    },
+    "Design": {
+      "done": 3,
+      "checked": 1,
+      "skipped": 0,
+      "blocked": 0
+    }
+  },
+  "gates": "simulated (automated test)",
+  "issue": "https://github.com/arghya05/hobasa-agentic-sdlc/issues/14",
+  "journey": "https://github.com/arghya05/hobasa-agentic-sdlc/blob/main/features/FEAT-ZD-48600/JOURNEY.md",
+  "evaluations": "https://github.com/arghya05/hobasa-agentic-sdlc/blob/main/evaluations/FEAT-ZD-48600",
+  "delivery_pack": "https://htmlpreview.github.io/?https://raw.githubusercontent.com/arghya05/hobasa-agentic-sdlc/main/docs/FEAT-ZD-48600/DELIVERY_PACK.html",
+  "updated": "2026-10-25T20:38:31"
+}
