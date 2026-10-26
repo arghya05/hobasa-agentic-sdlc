@@ -2,7 +2,7 @@
 
 **Requirement:** AP managers want to see which overdue invoices belong to vendors that usually pay late, so they can chase them first. (1) Data engineering, ap_pipeline: the vendor feed gains an optional paid_date column (ISO date, empty when unpaid); an invalid paid_date rejects the row with reason 'paid_date'; add delays_by_vendor(records) returning {vendor: [delay_days, ...]} for paid records with a paid_date, where delay_days = (paid_date - due_date) in days, in feed order. (2) AI / data science, ap_forecast: add vendor_risk(history) returning 'high' when predict_delay_days(history) > 30, 'medium' when it   
 **Source:** Zendesk ticket ZD-48600 (sample, synthetic) (Customer Feedback) · **classified:** New Feature · **fitment:** Yes · **route:** full · **repositories:** ap_aging, ap_forecast, ap_pipeline, ap_portal  
-**Gates:** SIMULATED (automated test) · updated 2026-10-26 07:12
+**Gates:** SIMULATED (automated test) · updated 2026-10-26 08:13
 
 Every agent reads this board at session start. Approved outputs below are readable with context_get and cited as journey:<item>. Legend: ✓ done · ▶ running · ⏸ waiting for a person · ? waiting for an owner answer · ✓↻ done, an input it read was updated later · 🔎 ran as a check (condition not met, nothing changed) · – skipped · ✗ stopped · · next
 
@@ -11,7 +11,7 @@ Every agent reads this board at session start. Approved outputs below are readab
 1. **In sequence:** ✓ REQ-01 → ✓ REQ-02 → ✓ REQ-03 → ✓ REQ-04 → ✓ REQ-05 → ✓ REQ-06 → ✓ REQ-07 → ✓ REQ-08 → 🔎 DES-01 → ✓ DES-02 → ✓ DES-03 → ✓ DES-04
 2. **In parallel**, one lane per coding agent (each lane in sequence):
    - Backend: ✓ BE-01 → ✓ BE-02 → ✓ BE-03 → ✓ BE-04 → ✓ BE-05 → ✗ BE-06 → · BE-07 → · BE-08 → · BE-09 → · BE-10
-   - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ✓ DS-05 → ✓ DS-06 → ▶ DS-07 → · DS-08 → · DS-09 → · DS-10
+   - Data Science: ✓ DS-01 → ✓ DS-02 → ✓ DS-03 → ✓ DS-04 → ✓ DS-05 → ✓ DS-06 → ✗ DS-07 → · DS-08 → · DS-09 → · DS-10
    - Data Engineering: ✓ DE-01 → ✓ DE-02 → ✓ DE-03 → ✓ DE-04 → ✓ DE-05 → ✓ DE-06 → ▶ DE-07 → · DE-08 → · DE-09 → · DE-10 → · DE-11 → · DE-12 → · DE-13 → · DE-14 → · DE-15 → · DE-16
    - Frontend: ✓ FE-01 → ✓ FE-02 → ✓ FE-03 → ✓ FE-04 → ✓ FE-05 → ▶ FE-06 → · FE-07 → · FE-08 → · FE-09
 3. **In sequence:** · DEP-01 → · DEP-02 → · DEP-03 → · TST-01 → · TST-02 → · TST-03 → · TST-04 → · TST-05 → · TST-06 → · TST-07 → · TST-08 → · TST-09 → · DEP-04 → · DEP-05 → · DEP-06 → · REL-01 → · REL-02 → · REL-P01 → · SCH-P03 → · DEP-07 → · DEP-P01 → · DEP-08 → · DEP-P02 → · DEP-P03 → · REL-03 → · REL-04 → · REL-P02 → · REL-P03 → · FBK-P01 → · FBK-P02 → · FBK-P03 → · FBK-P04 → · FBK-P05
@@ -55,13 +55,14 @@ Every agent reads this board at session start. Approved outputs below are readab
 | 33 | DS-06 Unit Test Cases | Data Science | [task.unit_tests](https://github.com/arghya05/hobasa-data-science-agent/blob/main/outputs/FEAT-ZD-48600/task.unit_tests.md) · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-06/README.md) | I followed the data-science-steps procedure for DS-06 and read both contracted inputs: task.code, which lists the DS-05 changes C-1 to C-3 and the planned tests C-4 and C-5, and feat.stories, which has AC-03.1 to AC-03.8 and AC-04.1 to AC-04.5. I called the CodeGraph MCP tool (codegraph_explore with the ap_forecast projectPath) to read the exact source of vendor_risk and build_explanation_request  | — | scores {'correct': 5, 'complete': 5, 'grounded': 4, 'useful': 5} | 3 |
 | 34 | FE-05 Unit Test Cases | Frontend | [task.unit_tests](https://github.com/arghya05/hobasa-frontend-agent/blob/main/outputs/FEAT-ZD-48600/task.unit_tests.md) · [step record](https://github.com/arghya05/hobasa-frontend-agent/blob/main/steps/FEAT-ZD-48600/FE-05/README.md) | I followed the FE-05 procedure in the frontend-steps skill and read task.code and feat.stories. I read the exact source and blast radius of renderOverdueRisk and its helpers with the codegraph MCP tool (codegraph_explore). I added node:test cases to tests/portal.test.js after the existing tests, which I did not change. There is one test for each of AC-07.1 to AC-07.10, plus the TypeError coverage  | — | scores {'correct': 4, 'complete': 4, 'grounded': 4, 'useful': 4} | 3 |
 | 35 | BE-06 Unit Test Cases | Backend | — · [step record](https://github.com/arghya05/hobasa-backend-agent/blob/main/steps/FEAT-ZD-48600/BE-06/README.md) | — | — | — | 9 |
+| 36 | DS-07 Commit & Push | Data Science | — · [step record](https://github.com/arghya05/hobasa-data-science-agent/blob/main/steps/FEAT-ZD-48600/DS-07/README.md) | — | — | — | 9 |
 
 ## Running now
 
 - DE-07 Identify the sources/pipelines to be changed (Transformation) ⁵ (Data Engineering)
-- DS-07 Commit & Push (Data Science)
 - FE-06 Commit & Push (Frontend)
 
 ## Exceptions waiting for a person
 
 - BE-06: Claude Code session ended success: API Error: Your computer went to sleep mid-response. The response above may be incomplete.
+- DS-07: Claude Code session ended success: API Error: Your computer went to sleep mid-response. The response above may be incomplete.
